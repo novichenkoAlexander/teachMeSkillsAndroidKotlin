@@ -20,6 +20,18 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             viewBinding.tvCount.text = field.toString()
         }
 
+    var ink: Int = 0
+        set(value) {
+            field = value
+            viewBinding.tvCount2.text = field.toString()
+        }
+
+    var sum: Int = 0
+        set(value) {
+            field = value
+            viewBinding.tvCountSum.text = (count + ink).toString()
+        }
+
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
 
     }
@@ -29,5 +41,13 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         viewBinding.btnClicker.setOnClickListener {
             count++
         }
+        viewBinding.btnClicker2.setOnClickListener {
+            ink++
+        }
+        viewBinding.btnSum.setOnClickListener {
+            sum++
+        }
     }
+
+
 }
