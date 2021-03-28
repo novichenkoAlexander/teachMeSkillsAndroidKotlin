@@ -31,12 +31,9 @@ class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvDate = itemView.findViewById<TextView>(R.id.tvDate)
 
     fun bind(item: Note) {
-        if (item.title.isNotEmpty()) {
-            tvTitle.text = item.title
-            tvDate.text = Date().toString()
-        } else {
-            return
-        }
+        tvTitle.text = item.title
+        //tvDate.text = item.date.toString()
+
     }
 
 }

@@ -9,5 +9,5 @@ class MainViewModel : CoroutineViewModel() {
 
 class Note(
     val title: String,
-    val date: String? = null
+    //val date: String? = null
 )

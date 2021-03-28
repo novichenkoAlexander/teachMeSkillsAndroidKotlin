@@ -19,7 +19,9 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         super.onViewCreated(view, savedInstanceState)
         viewBinding.btnClicker.setOnClickListener {
             val note = Note(viewBinding.editText.text.toString())
-            viewModel.notes.add(note)
+            if (note.title.isNotBlank() && note.title.isNotEmpty()) {
+                viewModel.notes.add(note)
+            }
             viewBinding.recycleView.adapter = NotesRecyclerViewAdapter(viewModel.notes)
         }
 
