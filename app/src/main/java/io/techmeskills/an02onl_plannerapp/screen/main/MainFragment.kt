@@ -17,12 +17,19 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewBinding.recycleView.adapter = NotesRecyclerViewAdapter(viewModel.notes)
+        viewBinding.btnClicker.setOnClickListener {
+            val note = Note(viewBinding.editText.text.toString())
+            if (note.title.isNotBlank() && note.title.isNotEmpty()) {
+                viewModel.notes.add(note)
+            }
+            viewBinding.recycleView.adapter = NotesRecyclerViewAdapter(viewModel.notes)
+        }
 
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.toolbar.setPadding(0, top, 0, 0)
-        viewBinding.recycleView.setPadding(0, 0, 0, bottom)
+        viewBinding.mainLayout.setPadding(0, 0, 0, bottom)
     }
+
 }
