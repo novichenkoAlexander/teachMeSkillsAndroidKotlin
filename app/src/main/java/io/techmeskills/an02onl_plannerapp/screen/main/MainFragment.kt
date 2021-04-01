@@ -18,12 +18,11 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.btnClicker.setOnClickListener {
-            val note = Note(viewBinding.editText.text.toString())
-            if (note.title.isNotBlank() && note.title.isNotEmpty()) {
-                viewModel.notes.add(note)
-            }
-            viewBinding.recycleView.adapter = NotesRecyclerViewAdapter(viewModel.notes)
+            viewModel.addNoteToList(viewBinding.editText)
         }
+        viewModel.listLiveData.observe(this.viewLifecycleOwner, {
+            viewBinding.recycleView.adapter = NotesRecyclerViewAdapter(it)
+        })
 
     }
 

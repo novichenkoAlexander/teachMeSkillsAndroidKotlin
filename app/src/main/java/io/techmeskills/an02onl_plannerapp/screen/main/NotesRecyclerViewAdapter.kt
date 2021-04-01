@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.techmeskills.an02onl_plannerapp.R
-import java.util.*
 
 class NotesRecyclerViewAdapter(private val notes: List<Note>) :
     RecyclerView.Adapter<NoteViewHolder>() {
@@ -32,7 +31,7 @@ class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(item: Note) {
         tvTitle.text = item.title
-        //tvDate.text = item.date.toString()
+        tvDate.text = item.date
 
     }
 
