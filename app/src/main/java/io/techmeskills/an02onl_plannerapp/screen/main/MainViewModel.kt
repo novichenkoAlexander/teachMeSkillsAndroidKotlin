@@ -13,8 +13,8 @@ class MainViewModel : CoroutineViewModel() {
     private val listOfNotes = ArrayList<Note>()
 
     fun addNoteToList(view: EditText) {
-        val note = Note(view.text.toString(), Date().toString())
         launch {
+            val note = Note(view.text.toString(), Date().toString())
             if (note.title.isNotBlank() && note.title.isNotEmpty()) {
                 listOfNotes.add(note)
             }
