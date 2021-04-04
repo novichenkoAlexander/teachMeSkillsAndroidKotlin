@@ -26,7 +26,9 @@
             android:id="@+id/toNoteFragment"
             app:destination="@+id/noteFragment"
             app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -36,7 +38,9 @@
         tools:layout="@layout/fragment_note">
         <action
             android:id="@+id/confirmAction"
-            app:destination="@+id/mainFragment" />
+            app:destination="@+id/mainFragment"
+            app:exitAnim="@android:anim/slide_in_left"
+            app:enterAnim="@android:anim/slide_in_left"/>
     </fragment>
 
 </navigation>

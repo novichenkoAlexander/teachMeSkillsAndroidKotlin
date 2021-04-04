@@ -25,8 +25,8 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
         viewBinding.btnAdd.setOnClickListener {
             findNavController().navigateSafe(MainFragmentDirections.toNoteFragment())
-
         }
+
         setFragmentResultListener(NoteFragment.NEW_RESULT) { _, bundle ->
             val info = bundle.getString(NoteFragment.INFO)
             val date = bundle.getString(NoteFragment.DATE)
