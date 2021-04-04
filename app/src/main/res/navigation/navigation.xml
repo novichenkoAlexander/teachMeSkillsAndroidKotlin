@@ -21,6 +21,22 @@
         android:id="@+id/mainFragment"
         android:name="io.techmeskills.an02onl_plannerapp.screen.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/toNoteFragment"
+            app:destination="@+id/noteFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/noteFragment"
+        android:name="io.techmeskills.an02onl_plannerapp.screen.main.NoteFragment"
+        android:label="NoteFragment"
+        tools:layout="@layout/fragment_note">
+        <action
+            android:id="@+id/confirmAction"
+            app:destination="@+id/mainFragment" />
+    </fragment>
 
 </navigation>
