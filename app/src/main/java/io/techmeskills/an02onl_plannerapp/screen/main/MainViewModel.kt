@@ -1,10 +1,8 @@
 package io.techmeskills.an02onl_plannerapp.screen.main
 
-import android.widget.EditText
 import androidx.lifecycle.MutableLiveData
 import io.techmeskills.an02onl_plannerapp.support.CoroutineViewModel
 import kotlinx.coroutines.launch
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MainViewModel : CoroutineViewModel() {
@@ -12,9 +10,9 @@ class MainViewModel : CoroutineViewModel() {
     val listLiveData = MutableLiveData<List<Note>>()
     private val listOfNotes = ArrayList<Note>()
 
-    fun addNoteToList(view: EditText) {
+    fun addNoteToList(text: String, date: String) {
         launch {
-            val note = Note(view.text.toString(), Date().toString())
+            val note = Note(text, date)
             if (note.title.isNotBlank() && note.title.isNotEmpty()) {
                 listOfNotes.add(note)
             }

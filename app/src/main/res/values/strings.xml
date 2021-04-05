@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">PlannerApp</string>
     <string name="welcome">Welcome</string>
-    <string name="click_me">Click Me</string>
+    <string name="click_me">Add new note</string>
     <string name="another_click">Click here too</string>
     <string name="sum">Sum</string>
     <string name="editTextHint">Input info</string>
+    <string name="eTDateHint">Input date</string>
+    <string name="noteFragmentEt">New note:</string>
+    <string name="confirmBtnText"> Add note </string>
+    <string name="AddNewBtnContext"> Add new note </string>
 </resources>
