@@ -2,7 +2,6 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.Animation
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
@@ -24,6 +23,8 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
             setFragmentResult(NEW_RESULT, Bundle().apply {
                 putString(INFO, viewBinding.etInfo.text.toString())
                 putString(DATE, viewBinding.etDate.text.toString())
+                //TODO: Add dataPiker to field Date
+                //TODO: Input data make with button and on click choose date
             })
             findNavController().popBackStack()
             viewBinding.etInfo.setText("")

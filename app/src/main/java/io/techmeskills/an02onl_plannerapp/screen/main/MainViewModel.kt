@@ -10,10 +10,10 @@ class MainViewModel : CoroutineViewModel() {
     val listLiveData = MutableLiveData<List<Note>>()
     private val listOfNotes = ArrayList<Note>()
 
-    fun addNoteToList(text: String, date: String) {
+    fun addNoteToList(text: String, date: String?) {
         launch {
             val note = Note(text, date)
-            if (note.title.isNotBlank() && note.title.isNotEmpty()) {
+            if (note.title.isNotBlank()) {
                 listOfNotes.add(note)
             }
             listLiveData.postValue(listOfNotes)
@@ -24,5 +24,5 @@ class MainViewModel : CoroutineViewModel() {
 
 class Note(
     val title: String,
-    val date: String
+    val date: String? = null
 )

@@ -31,7 +31,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             val info = bundle.getString(NoteFragment.INFO)
             val date = bundle.getString(NoteFragment.DATE)
             info?.let {
-                viewModel.addNoteToList(it, date!!)
+                viewModel.addNoteToList(it, date)
             }
         }
         viewBinding.recycleView.scrollToPosition(viewBinding.recycleView.size - 1)
