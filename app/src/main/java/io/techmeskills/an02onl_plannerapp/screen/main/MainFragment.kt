@@ -23,7 +23,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewBinding.btnAdd.setOnClickListener {
+        viewBinding.btnAddNote.setOnClickListener {
             findNavController().navigateSafe(MainFragmentDirections.toNoteFragment())
         }
 
@@ -43,7 +43,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.toolbar.setPadding(0, top, 0, 0)
         viewBinding.recycleView.setPadding(0, 0, 0, bottom)
-        viewBinding.btnAdd.setVerticalMargin(marginBottom = bottom)
+        viewBinding.btnAddNote.setVerticalMargin(marginBottom = bottom)
     }
 
 }

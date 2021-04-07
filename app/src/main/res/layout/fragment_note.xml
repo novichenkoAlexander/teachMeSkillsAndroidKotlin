@@ -12,48 +12,59 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Planer App"
+        app:title="Add new note"
         app:titleTextColor="@color/white" />
-
-    <TextView
-        android:id="@+id/tvNoteFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:text="@string/noteFragmentEt"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <EditText
         android:id="@+id/etInfo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/et_shape"
         android:hint="@string/editTextHint"
+        android:maxHeight="100dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="10dp"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvNoteFragment" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <EditText
-        android:id="@+id/etDate"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSetDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/eTDateHint"
-        android:textSize="20sp"
+        android:background="@drawable/et_shape"
+        android:layout_margin="8dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etInfo" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etInfo"
+        app:layout_constraintBottom_toTopOf="@id/dataPicker"
+        android:hint="@string/ButtonDateClick"/>
+
+
+    <DatePicker
+        android:id="@+id/dataPicker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetDate" />
 
     <Button
         android:id="@+id/btnConfirm"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:text="@string/confirmBtnText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etDate" />
+        app:layout_constraintTop_toBottomOf="@id/dataPicker" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

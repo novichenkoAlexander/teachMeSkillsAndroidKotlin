@@ -2,7 +2,9 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
 import android.view.View
+import android.widget.DatePicker
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.get
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import io.techmeskills.an02onl_plannerapp.R
@@ -14,21 +16,31 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
 
 
     override val viewBinding: FragmentNoteBinding by viewBinding()
-
+    var date = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewBinding.dataPicker.init(
+            2021,
+            1,
+            1
+        ) { _, year, monthOfYear, dayOfMonth ->
+            date = "$year : $monthOfYear : $dayOfMonth"
+        }
+
+        viewBinding.btnSetDate.setOnClickListener {
+            viewBinding.btnSetDate.apply {
+                text = date
+            }
+        }
+
         viewBinding.btnConfirm.setOnClickListener {
             setFragmentResult(NEW_RESULT, Bundle().apply {
                 putString(INFO, viewBinding.etInfo.text.toString())
-                putString(DATE, viewBinding.etDate.text.toString())
-                //TODO: Add dataPiker to field Date
-                //TODO: Input data make with button and on click choose date
+                putString(DATE, viewBinding.btnSetDate.text.toString())
             })
             findNavController().popBackStack()
-            viewBinding.etInfo.setText("")
-            viewBinding.etDate.setText("")
         }
 
     }

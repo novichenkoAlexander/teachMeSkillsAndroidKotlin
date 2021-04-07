@@ -9,4 +9,5 @@
     <string name="noteFragmentEt">New note:</string>
     <string name="confirmBtnText"> Add note </string>
     <string name="AddNewBtnContext"> Add new note </string>
+    <string name="ButtonDateClick"> Set date </string>
 </resources>

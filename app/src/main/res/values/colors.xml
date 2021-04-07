@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="user">#ECE9D5</color>
     <color name="cardViewBackground">#D9F1F4</color>
+    <color name="editTextShapeColor">#02707E</color>
 </resources>
