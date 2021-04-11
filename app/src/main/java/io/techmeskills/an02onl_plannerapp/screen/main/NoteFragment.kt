@@ -11,8 +11,7 @@ import io.techmeskills.an02onl_plannerapp.R
 import by.kirich1409.viewbindingdelegate.viewBinding
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentNoteBinding
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
-import java.text.DateFormat
-import java.util.*
+
 
 class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_note) {
 
@@ -70,8 +69,6 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
 
     companion object {
         const val NEW_RESULT = "New Result"
-        const val INFO = "INFO"
-        const val DATE = "DATE"
         const val NOTE = "NOTE"
     }
 }
