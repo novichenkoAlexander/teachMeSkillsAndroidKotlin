@@ -2,49 +2,60 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
 import android.view.View
-import android.widget.DatePicker
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.get
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import io.techmeskills.an02onl_plannerapp.R
 import by.kirich1409.viewbindingdelegate.viewBinding
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentNoteBinding
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
+import java.text.DateFormat
+import java.util.*
 
 class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_note) {
 
 
     override val viewBinding: FragmentNoteBinding by viewBinding()
-    var date = ""
+    private val args: NoteFragmentArgs by navArgs()
+    private var date = "2021:01:01"
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewBinding.dataPicker.init(
-            2021,
-            1,
-            1
-        ) { _, year, monthOfYear, dayOfMonth ->
+        args.noteToEdit?.let { noteToEdit ->
+            viewBinding.etInfo.setText(noteToEdit.title)
+            viewBinding.btnSetDate.text = noteToEdit.date
+        }
+
+        viewBinding.dataPicker.init(2021, 1, 1) { _, year, monthOfYear, dayOfMonth ->
             date = "$year : $monthOfYear : $dayOfMonth"
         }
 
         viewBinding.btnSetDate.setOnClickListener {
-            viewBinding.btnSetDate.apply {
-                text = date
-            }
+            viewBinding.btnSetDate.text = date
         }
 
         viewBinding.btnConfirm.setOnClickListener {
-            setFragmentResult(NEW_RESULT, Bundle().apply {
-                putString(INFO, viewBinding.etInfo.text.toString())
-                putString(DATE, viewBinding.btnSetDate.text.toString())
-            })
-            findNavController().popBackStack()
+            if (viewBinding.etInfo.text.isNotBlank()) {
+                setFragmentResult(NEW_RESULT, Bundle().apply {
+                    putParcelable(
+                        NOTE,
+                        Note(
+                            if (args.noteToEdit == null) -1 else args.noteToEdit!!.id,
+                            viewBinding.etInfo.text.toString(),
+                            viewBinding.btnSetDate.text.toString()
+                        )
+                    )
+                })
+                findNavController().popBackStack()
+            } else {
+                Toast.makeText(requireContext(), "Please, type the note", Toast.LENGTH_LONG).show()
+            }
         }
-
     }
-
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.toolbar.setPadding(0, top, 0, 0)
@@ -61,5 +72,6 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
         const val NEW_RESULT = "New Result"
         const val INFO = "INFO"
         const val DATE = "DATE"
+        const val NOTE = "NOTE"
     }
 }

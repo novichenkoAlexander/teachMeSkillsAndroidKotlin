@@ -25,7 +25,7 @@
         <action
             android:id="@+id/toNoteFragment"
             app:destination="@+id/noteFragment"
-            app:enterAnim="@android:anim/slide_out_right"/>
+            app:enterAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -33,9 +33,10 @@
         android:name="io.techmeskills.an02onl_plannerapp.screen.main.NoteFragment"
         android:label="NoteFragment"
         tools:layout="@layout/fragment_note">
-        <action
-            android:id="@+id/confirmAction"
-            app:destination="@+id/mainFragment"/>
+        <argument
+            android:name="noteToEdit"
+            app:argType="io.techmeskills.an02onl_plannerapp.screen.main.Note"
+            app:nullable="true" />
     </fragment>
 
 </navigation>
