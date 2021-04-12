@@ -18,7 +18,7 @@
         app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleView"
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -30,14 +30,14 @@
         tools:listitem="@layout/note_list_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnAddNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/AddNewBtnContext"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/ic_fi_rr_plus" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
