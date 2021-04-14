@@ -21,14 +21,13 @@ class MainViewModel : CoroutineViewModel() {
             Note(8, "Make coffee"),
             Note(9, "Take sandwich"),
             Note(10, "Be late to work"),
-            )
+        )
     )
 
     fun addNote(note: Note) {
         launch {
             val list = listLiveData.value!!.toMutableList()
-            val maxIdNote: Long =
-                if (list.isEmpty()) -1 else list.reduce(Note.Compare::max).id
+            val maxIdNote: Long = if (list.isEmpty()) -1 else list.reduce(Note.Compare::max).id
             list.add(Note(maxIdNote + 1, note.title, note.date))
             listLiveData.postValue(list)
         }

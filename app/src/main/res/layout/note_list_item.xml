@@ -7,8 +7,8 @@
     android:clipToPadding="false">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_width="394dp"
+        android:layout_height="98dp"
         android:layout_margin="8dp"
         app:cardBackgroundColor="@color/cardViewBackground"
         app:cardCornerRadius="18dp"
@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="94dp">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -46,21 +46,12 @@
                 android:fontFamily="sans-serif-black"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:text="20.01.2021"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                tools:text="20.01.2021" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <ImageView
-        android:id="@+id/ivDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="20dp"
-        android:src="@drawable/ic_remove"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

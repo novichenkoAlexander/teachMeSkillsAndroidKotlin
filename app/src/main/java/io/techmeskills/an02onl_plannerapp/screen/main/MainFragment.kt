@@ -25,9 +25,6 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     private val adapter = NotesRecyclerViewAdapter(
         onClick = { note ->
             findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(note))
-        },
-        onDelete = {
-            viewModel.deleteNote(it)
         }
     )
 
@@ -53,7 +50,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
                 }
             }
         }
-        viewBinding.recyclerView.scrollToPosition(viewBinding.recyclerView.size - 1)
+        viewBinding.recyclerView.smoothScrollToPosition(adapter.itemCount)
 
         val simpleSwipeCallBack = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 

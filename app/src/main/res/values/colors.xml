@@ -8,6 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="user">#ECE9D5</color>
-    <color name="cardViewBackground">#D9F1F4</color>
+    <color name="cardViewBackground">#ECE185</color>
     <color name="editTextShapeColor">#02707E</color>
 </resources>
