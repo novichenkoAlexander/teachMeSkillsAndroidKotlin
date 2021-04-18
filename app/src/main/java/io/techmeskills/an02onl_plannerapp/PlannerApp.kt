@@ -2,6 +2,7 @@ package io.techmeskills.an02onl_plannerapp
 
 import android.app.Application
 import io.techmeskills.an02onl_plannerapp.screen.main.MainViewModel
+import io.techmeskills.an02onl_plannerapp.screen.main.NoteViewModel
 import io.techmeskills.an02onl_plannerapp.screen.main.database.DataBaseConstructor
 import io.techmeskills.an02onl_plannerapp.screen.main.database.NoteDatabase
 import io.techmeskills.an02onl_plannerapp.screen.main.database.NotesDao
@@ -25,6 +26,7 @@ class PlannerApp : Application() {
     private val viewModels = module {
         viewModel { SplashViewModel() }
         viewModel { MainViewModel(get()) }
+        viewModel { NoteViewModel(get()) }
     }
 
     private val dataBaseModule = module {
