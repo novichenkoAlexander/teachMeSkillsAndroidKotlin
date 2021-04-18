@@ -1,6 +1,7 @@
 package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Note.NOTE
 import android.view.View
 import android.widget.DatePicker
 import android.widget.Toast
@@ -11,43 +12,55 @@ import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentNoteBinding
+import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import java.text.SimpleDateFormat
 import java.util.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_note) {
 
 
     override val viewBinding: FragmentNoteBinding by viewBinding()
+
     private val args: NoteFragmentArgs by navArgs()
+
+    private val viewModel: NoteViewModel by viewModel()
+
     private val dateFormatter: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        args.noteToEdit?.let { noteToEdit ->
-            viewBinding.etInfo.setText(noteToEdit.title)
-            viewBinding.dataPicker.setSelectedDate(noteToEdit.date)
-        }
-
         viewBinding.btnConfirm.setOnClickListener {
             if (viewBinding.etInfo.text.isNotBlank()) {
-                setFragmentResult(NEW_RESULT, Bundle().apply {
-                    putParcelable(
-                        NOTE,
+                args.noteToEdit?.let {
+                    viewModel.updateNote(
                         Note(
-                            if (args.noteToEdit == null) -1 else args.noteToEdit!!.id,
-                            viewBinding.etInfo.text.toString(),
-                            dateFormatter.format(viewBinding.dataPicker.getSelectedDate())
+                            id = it.id,
+                            title = viewBinding.etInfo.text.toString(),
+                            date = dateFormatter.format(viewBinding.dataPicker.getSelectedDate())
                         )
                     )
-                })
+                } ?: kotlin.run {
+                    viewModel.addNewNote(
+                        Note(
+                            title = viewBinding.etInfo.text.toString(),
+                            date = dateFormatter.format(viewBinding.dataPicker.getSelectedDate())
+                        )
+                    )
+                }
                 findNavController().popBackStack()
             } else {
                 Toast.makeText(requireContext(), "Please, type the note", Toast.LENGTH_LONG).show()
             }
+        }
+
+        args.noteToEdit?.let { noteToEdit ->
+            viewBinding.etInfo.setText(noteToEdit.title)
+            viewBinding.dataPicker.setSelectedDate(noteToEdit.date)
         }
     }
 

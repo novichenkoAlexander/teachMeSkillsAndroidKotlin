@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.techmeskills.an02onl_plannerapp.R
+import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
 
 
 class NotesRecyclerViewAdapter(
@@ -33,7 +34,7 @@ class NotesRecyclerViewAdapter(
 
     inner class NoteViewHolder(
         itemView: View,
-        private val onItemClick: (Int) -> Unit,
+        private val onItemClick: (Int) -> Unit
     ) :
         RecyclerView.ViewHolder(itemView) {
 

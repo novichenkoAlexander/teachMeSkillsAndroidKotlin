@@ -2,14 +2,13 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.size
-import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentMainBinding
+import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.navigateSafe
 import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
@@ -23,17 +22,18 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     private val viewModel: MainViewModel by viewModel()
 
     private val adapter = NotesRecyclerViewAdapter(
-        onClick = { note ->
-            findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(note))
-        }
+        onClick = ::onItemClick
     )
+
+    private fun onItemClick(note: Note) {
+        findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(note))
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewBinding.recyclerView.adapter = adapter
-
-        viewModel.listLiveData.observe(this.viewLifecycleOwner) {
+        viewModel.notesLiveDao.observe(this.viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
@@ -41,15 +41,15 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(null))
         }
 
-        setFragmentResultListener(NoteFragment.NEW_RESULT) { _, bundle ->
-            bundle.getParcelable<Note>(NoteFragment.NOTE)?.let {
-                if (it.id < 0) {
-                    viewModel.addNote(it)
-                } else {
-                    viewModel.editNote(it)
-                }
-            }
-        }
+//        setFragmentResultListener(NoteFragment.NEW_RESULT) { _, bundle ->
+//            bundle.getParcelable<Note>(NoteFragment.NOTE)?.let {
+//                if (it.id < 0) {
+//                    viewModel.addNote(it)
+//                } else {
+//                    viewModel.editNote(it)
+//                }
+//            }
+//        }
         viewBinding.recyclerView.smoothScrollToPosition(adapter.itemCount)
 
         val simpleSwipeCallBack = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -61,7 +61,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             ): Boolean = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                viewModel.deleteNote(viewHolder.adapterPosition)
+                //viewModel.deleteNote()
             }
         }
         val noteHelper = ItemTouchHelper(simpleSwipeCallBack)
