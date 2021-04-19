@@ -35,7 +35,7 @@
         tools:layout="@layout/fragment_note">
         <argument
             android:name="noteToEdit"
-            app:argType="io.techmeskills.an02onl_plannerapp.screen.main.Note"
+            app:argType="io.techmeskills.an02onl_plannerapp.screen.main.models.Note"
             app:nullable="true" />
     </fragment>
 

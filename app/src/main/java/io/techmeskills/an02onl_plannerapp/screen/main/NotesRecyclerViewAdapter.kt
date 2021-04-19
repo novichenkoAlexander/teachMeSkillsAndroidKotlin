@@ -3,26 +3,25 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.techmeskills.an02onl_plannerapp.R
+import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
 
 
 class NotesRecyclerViewAdapter(
-    private val onClick: (Note) -> Unit,
-    private val onDelete: (Int) -> Unit
+    private val onClick: (Note) -> Unit
 ) :
     ListAdapter<Note, NotesRecyclerViewAdapter.NoteViewHolder>(NoteAdapterDiffCallback()) {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ) = NoteViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.note_list_item, parent, false),
-        ::onItemClick,
-        onDelete
+        ::onItemClick
     )
 
     private fun onItemClick(position: Int) {
@@ -35,22 +34,16 @@ class NotesRecyclerViewAdapter(
 
     inner class NoteViewHolder(
         itemView: View,
-        private val onItemClick: (Int) -> Unit,
-        private val onItemDelete: (Int) -> Unit
+        private val onItemClick: (Int) -> Unit
     ) :
         RecyclerView.ViewHolder(itemView) {
 
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val tvDate = itemView.findViewById<TextView>(R.id.tvDate)
-        private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete)
 
         init {
             itemView.setOnClickListener {
                 onItemClick(adapterPosition)
-            }
-
-            ivDelete.setOnClickListener {
-                onItemDelete(adapterPosition)
             }
         }
 
