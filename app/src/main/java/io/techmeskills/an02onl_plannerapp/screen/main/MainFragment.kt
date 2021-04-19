@@ -41,15 +41,6 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(null))
         }
 
-//        setFragmentResultListener(NoteFragment.NEW_RESULT) { _, bundle ->
-//            bundle.getParcelable<Note>(NoteFragment.NOTE)?.let {
-//                if (it.id < 0) {
-//                    viewModel.addNote(it)
-//                } else {
-//                    viewModel.editNote(it)
-//                }
-//            }
-//        }
         viewBinding.recyclerView.smoothScrollToPosition(adapter.itemCount)
 
         val simpleSwipeCallBack = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -61,7 +52,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             ): Boolean = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                //viewModel.deleteNote()
+                viewModel.deleteNote(viewHolder.adapterPosition)
             }
         }
         val noteHelper = ItemTouchHelper(simpleSwipeCallBack)

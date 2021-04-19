@@ -1,12 +1,10 @@
 package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Note.NOTE
 import android.view.View
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -98,10 +96,5 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
                 this.updateDate(year, month, day)
             }
         }
-    }
-
-    companion object {
-        const val NEW_RESULT = "New Result"
-        const val NOTE = "NOTE"
     }
 }

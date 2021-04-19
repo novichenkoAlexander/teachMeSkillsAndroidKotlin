@@ -13,21 +13,10 @@ class MainViewModel(private val notesDao: NotesDao) : CoroutineViewModel() {
 
     val notesLiveDao = notesDao.getAllNotesFlow().map { it }.flowOn(Dispatchers.IO).asLiveData()
 
-    fun addNote(note: Note) {
+    fun deleteNote(pos: Int) {
         launch {
-            notesDao.insertNote(note)
-        }
-    }
-
-    fun editNote(note: Note) {
-        launch {
-            notesDao.updateNote(note)
-        }
-    }
-
-    fun deleteNote(note: Note) {
-        launch {
-            notesDao.deleteNote(note)
+            val note = notesLiveDao.value?.get(pos)
+            note?.let { notesDao.deleteNote(it) }
         }
     }
 

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 abstract class NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertNote(note: Note) : Long
+    abstract fun insertNote(note: Note): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertNote(notes: List<Note>)
