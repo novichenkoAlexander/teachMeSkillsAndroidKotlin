@@ -7,8 +7,8 @@
     android:clipToPadding="false">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="394dp"
-        android:layout_height="98dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_margin="8dp"
         app:cardBackgroundColor="@color/cardViewBackground"
         app:cardCornerRadius="18dp"
