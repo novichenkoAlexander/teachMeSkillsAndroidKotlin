@@ -36,6 +36,11 @@
             android:id="@+id/toNoteFragment"
             app:destination="@+id/noteFragment"
             app:enterAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/toLoginScreenFragment"
+            app:destination="@+id/loginScreenFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

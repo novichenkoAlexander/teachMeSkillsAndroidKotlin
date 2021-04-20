@@ -12,6 +12,7 @@ import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentNoteBinding
 import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
+import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import java.text.SimpleDateFormat
 import java.util.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,12 +35,14 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
 
         viewBinding.btnConfirm.setOnClickListener {
             if (viewBinding.etInfo.text.isNotBlank()) {
+
                 args.noteToEdit?.let {
                     viewModel.updateNote(
                         Note(
                             id = it.id,
                             title = viewBinding.etInfo.text.toString(),
-                            date = dateFormatter.format(viewBinding.dataPicker.getSelectedDate())
+                            date = dateFormatter.format(viewBinding.dataPicker.getSelectedDate()),
+                            userId = it.userId
                         )
                     )
                 } ?: kotlin.run {
@@ -63,7 +66,7 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
-        viewBinding.toolbar.setPadding(0, top, 0, 0)
+        viewBinding.toolbar.setVerticalMargin(marginTop = top)
     }
 
     override val backPressedCallback: OnBackPressedCallback

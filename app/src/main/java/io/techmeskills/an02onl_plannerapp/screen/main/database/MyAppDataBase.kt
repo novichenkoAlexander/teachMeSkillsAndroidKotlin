@@ -4,24 +4,30 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import io.techmeskills.an02onl_plannerapp.BuildConfig
 import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
+import io.techmeskills.an02onl_plannerapp.screen.main.models.User
 
 
 @Database(
-    entities = [Note::class],
+    entities = [
+        Note::class,
+        User::class
+    ],
     version = 1,
     exportSchema = false
 )
 
-abstract class NoteDatabase : RoomDatabase() {
+abstract class MyAppDataBase : RoomDatabase() {
     abstract fun notesDao(): NotesDao
+    abstract fun usersDao(): UsersDao
 }
 
 object DataBaseConstructor {
-    fun create(context: Context): NoteDatabase =
+    fun create(context: Context): MyAppDataBase =
         Room.databaseBuilder(
             context,
-            NoteDatabase::class.java,
-            "io.techmeskills.an02onl_plannerapp.db"
+            MyAppDataBase::class.java,
+            "${BuildConfig.APPLICATION_ID}.db"
         ).build()
 }

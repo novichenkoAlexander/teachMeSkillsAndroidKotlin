@@ -28,4 +28,7 @@ abstract class NotesDao {
 
     @Query("SELECT * FROM notes")
     abstract fun getAllNotesLiveData(): LiveData<List<Note>>
+
+    @Query("SELECT * FROM notes WHERE userId ==:userId ORDER BY id DESC")
+    abstract fun getAllNotesFlowByUserId(userId: Long): Flow<List<Note>>
 }

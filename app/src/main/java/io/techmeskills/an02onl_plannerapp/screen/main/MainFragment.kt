@@ -2,6 +2,8 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.marginTop
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +35,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         super.onViewCreated(view, savedInstanceState)
 
         viewBinding.recyclerView.adapter = adapter
-        viewModel.notesLiveDao.observe(this.viewLifecycleOwner) {
+        viewModel.notesLiveData.observe(this.viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
@@ -59,8 +61,16 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         noteHelper.attachToRecyclerView(viewBinding.recyclerView)
     }
 
+    override val backPressedCallback: OnBackPressedCallback
+        get() = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.logOut()
+                findNavController().popBackStack()
+            }
+        }
+
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
-        viewBinding.toolbar.setPadding(0, top, 0, 0)
+        viewBinding.toolbar.setVerticalMargin(marginTop = top)
         viewBinding.recyclerView.setPadding(0, 0, 0, bottom)
         viewBinding.btnAddNote.setVerticalMargin(marginBottom = bottom)
     }
