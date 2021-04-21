@@ -24,7 +24,7 @@ class MainViewModel(
         }
     }
 
-    fun logOut(){
+    fun logOut() {
         launch {
             usersRepository.logout()
         }

@@ -14,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import io.techmeskills.an02onl_plannerapp.screen.main.models.User
 
 class LoginScreenFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
@@ -30,7 +31,14 @@ class LoginScreenFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fr
 
         viewModel.loggedIn.observe(this.viewLifecycleOwner) { loggedIn ->
             if (loggedIn) {
-                findNavController().navigateSafe(LoginScreenFragmentDirections.toMainFragment())
+                findNavController().navigateSafe(
+                    LoginScreenFragmentDirections.toMainFragment(
+                        User(
+                            name = viewBinding.etUserName.text.toString(),
+                            password = viewBinding.etUserPass.text.toString()
+                        )
+                    )
+                )
             }
         }
 

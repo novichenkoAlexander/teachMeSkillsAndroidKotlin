@@ -1,6 +1,5 @@
 package io.techmeskills.an02onl_plannerapp.screen.main.repositories
 
-import android.widget.Toast
 import io.techmeskills.an02onl_plannerapp.screen.main.database.UsersDao
 import io.techmeskills.an02onl_plannerapp.screen.main.datastore.AppSettings
 import io.techmeskills.an02onl_plannerapp.screen.main.models.User
@@ -13,23 +12,23 @@ import kotlinx.coroutines.withContext
 class UsersRepository(private val usersDao: UsersDao, private val appSettings: AppSettings) {
 
     suspend fun login(userName: String, password: String): Boolean {
-        var correctPassword = false
+        var isPasswordCorrect = false
         withContext(Dispatchers.IO) {
             if (checkUserExists(userName).not()) {
                 val userId = usersDao.addNewUser(User(name = userName, password = password))
                 appSettings.setUserId(userId)
-                correctPassword = true
+                isPasswordCorrect = true
             } else {
                 if (checkUserPasswordIsCorrect(userName, password)) {
                     val userId = usersDao.getUserId(userName)
                     appSettings.setUserId(userId)
-                    correctPassword = true
+                    isPasswordCorrect = true
                 } else {
-                    correctPassword
+                    isPasswordCorrect
                 }
             }
         }
-        return correctPassword
+        return isPasswordCorrect
     }
 
     private suspend fun checkUserPasswordIsCorrect(userName: String, password: String): Boolean {

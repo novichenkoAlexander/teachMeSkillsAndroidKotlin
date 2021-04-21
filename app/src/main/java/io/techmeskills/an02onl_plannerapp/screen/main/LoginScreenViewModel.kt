@@ -17,18 +17,15 @@ class LoginScreenViewModel(private val usersRepository: UsersRepository) : Corou
     fun login(userName: String, password: String) {
         launch {
             try {
-                if (userName.isNotBlank() && password.isNotBlank()) {
-                    if (!usersRepository.login(userName, password)) {
+                when {
+                    userName.isNotBlank() && password.isNotBlank() ->
+                        if (!usersRepository.login(userName, password)) {
                         errorLiveData.postValue("Wrong password")
                     }
-                } else if (userName.isNotBlank()) {
-                    errorLiveData.postValue("Enter password")
-                } else if (password.isNotBlank()) {
-                    errorLiveData.postValue("Enter user name")
-                } else if (userName.isBlank() && password.isBlank()) {
-                    errorLiveData.postValue("Enter user name and password")
-                } else {
-                    errorLiveData.postValue("Wrong password")
+                    userName.isNotBlank() -> errorLiveData.postValue("Enter password")
+                    password.isNotBlank() -> errorLiveData.postValue("Enter user name")
+                    userName.isBlank() && password.isBlank() ->
+                        errorLiveData.postValue("Enter user name and password")
                 }
             } catch (e: Exception) {
                 errorLiveData.postValue(e.message)
