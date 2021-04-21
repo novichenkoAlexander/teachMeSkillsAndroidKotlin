@@ -68,8 +68,8 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         val noteHelper = ItemTouchHelper(simpleSwipeCallBack)
         noteHelper.attachToRecyclerView(viewBinding.recyclerView)
 
-        args.user.let { user ->
-            viewBinding.toolbar.title = user.name
+        args.userName.let { userName ->
+            viewBinding.toolbar.title = userName
         }
     }
 

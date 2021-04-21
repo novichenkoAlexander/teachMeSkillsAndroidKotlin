@@ -42,8 +42,8 @@
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true" />
         <argument
-            android:name="user"
-            app:argType="io.techmeskills.an02onl_plannerapp.screen.main.models.User"
+            android:name="userName"
+            app:argType="string"
             app:nullable="false" />
     </fragment>
 
