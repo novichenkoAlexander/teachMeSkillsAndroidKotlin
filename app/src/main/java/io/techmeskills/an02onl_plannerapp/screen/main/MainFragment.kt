@@ -2,8 +2,6 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.OnBackPressedCallback
-import androidx.core.view.marginTop
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +41,11 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(null))
         }
 
+        viewBinding.ivLogOut.setOnClickListener {
+            viewModel.logOut()
+            findNavController().navigateSafe(MainFragmentDirections.toLoginScreenFragment())
+        }
+
         viewBinding.recyclerView.smoothScrollToPosition(adapter.itemCount)
 
         val simpleSwipeCallBack = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -60,14 +63,6 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         val noteHelper = ItemTouchHelper(simpleSwipeCallBack)
         noteHelper.attachToRecyclerView(viewBinding.recyclerView)
     }
-
-    override val backPressedCallback: OnBackPressedCallback
-        get() = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                viewModel.logOut()
-                findNavController().popBackStack()
-            }
-        }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.toolbar.setVerticalMargin(marginTop = top)

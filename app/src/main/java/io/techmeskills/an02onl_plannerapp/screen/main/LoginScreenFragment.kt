@@ -26,12 +26,16 @@ class LoginScreenFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fr
 
         viewModel.errorLiveData.observe(this.viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+        }
 
+        viewModel.loggedIn.observe(this.viewLifecycleOwner) { loggedIn ->
+            if (loggedIn) {
+                findNavController().navigateSafe(LoginScreenFragmentDirections.toMainFragment())
+            }
         }
 
         viewBinding.btnLogIn.setOnClickListener {
             viewModel.login(viewBinding.etUserName.text.toString(), viewBinding.etUserPass.text.toString())
-            findNavController().navigateSafe(LoginScreenFragmentDirections.toMainFragment())
         }
     }
 
