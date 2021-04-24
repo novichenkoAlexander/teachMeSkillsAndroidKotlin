@@ -22,6 +22,9 @@ abstract class UsersDao {
     @Query("SELECT password FROM users WHERE name == :userName")
     abstract fun getUserPasswordByName(userName: String): String
 
+    @Query("SELECT name FROM USERS WHERE id ==:userId")
+    abstract fun getUserNameByIdFlow(userId: Long): Flow<String>
+
     @Query("SELECT name FROM users")
     abstract fun getAllUserNames(): Flow<List<String>>
 }

@@ -4,9 +4,7 @@ import io.techmeskills.an02onl_plannerapp.screen.main.database.UsersDao
 import io.techmeskills.an02onl_plannerapp.screen.main.datastore.AppSettings
 import io.techmeskills.an02onl_plannerapp.screen.main.models.User
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 
 class UsersRepository(private val usersDao: UsersDao, private val appSettings: AppSettings) {
@@ -41,6 +39,10 @@ class UsersRepository(private val usersDao: UsersDao, private val appSettings: A
         return withContext(Dispatchers.IO) {
             usersDao.getUsersCount(userName) > 0
         }
+    }
+
+    fun getCurrentUserName(): Flow<String> = appSettings.userIdFlow().flatMapLatest { userId ->
+        usersDao.getUserNameByIdFlow(userId)
     }
 
     fun checkUserLoggedIn(): Flow<Boolean> =

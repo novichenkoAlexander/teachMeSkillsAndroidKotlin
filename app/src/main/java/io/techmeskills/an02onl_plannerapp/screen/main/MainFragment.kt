@@ -1,11 +1,8 @@
 package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -23,8 +20,6 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     override val viewBinding: FragmentMainBinding by viewBinding()
 
     private val viewModel: MainViewModel by viewModel()
-
-    private val args: MainFragmentArgs by navArgs()
 
     private val adapter = NotesRecyclerViewAdapter(
         onClick = ::onItemClick
@@ -68,7 +63,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         val noteHelper = ItemTouchHelper(simpleSwipeCallBack)
         noteHelper.attachToRecyclerView(viewBinding.recyclerView)
 
-        args.userName.let { userName ->
+        viewModel.currentUserNameLiveData.observe(this.viewLifecycleOwner) { userName ->
             viewBinding.toolbar.title = userName
         }
     }
