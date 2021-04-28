@@ -3,6 +3,7 @@ package io.techmeskills.an02onl_plannerapp
 import android.content.Context
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController

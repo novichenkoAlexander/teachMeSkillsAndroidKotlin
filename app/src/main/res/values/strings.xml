@@ -10,4 +10,11 @@
     <string name="confirmBtnText"> Add note </string>
     <string name="AddNewBtnContext"> Add new note </string>
     <string name="ButtonDateClick"> Set date </string>
+    <string name="login_screen_log_in">Log in</string>
+    <string name="login_screen_log_in_to_continue">Log in to continue</string>
+    <string name="login_screen_email_login">Email/Login</string>
+    <string name="login_screen_user_example_com">user@example.com</string>
+    <string name="login_screen_password">Password</string>
+    <string name="login_screen_password_hint">********</string>
+    <string name="login_screen_btn_login">Login</string>
 </resources>

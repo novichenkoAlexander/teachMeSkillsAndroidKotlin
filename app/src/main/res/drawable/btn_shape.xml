@@ -1,0 +1,8 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:thickness="0dp"
+    android:shape="rectangle">
+    <stroke android:width="3dp"
+        android:color="@color/loginScreenBtnColor" />
+    <solid android:color="@color/loginScreenBtnColor"/>
+    <corners android:radius="200dp"/>
+</shape>

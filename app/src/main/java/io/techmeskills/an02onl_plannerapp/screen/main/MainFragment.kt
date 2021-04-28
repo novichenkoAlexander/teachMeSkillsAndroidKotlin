@@ -1,8 +1,11 @@
 package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,6 +24,8 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
     private val viewModel: MainViewModel by viewModel()
 
+    private val args: MainFragmentArgs by navArgs()
+
     private val adapter = NotesRecyclerViewAdapter(
         onClick = ::onItemClick
     )
@@ -33,12 +38,17 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         super.onViewCreated(view, savedInstanceState)
 
         viewBinding.recyclerView.adapter = adapter
-        viewModel.notesLiveDao.observe(this.viewLifecycleOwner) {
+        viewModel.notesLiveData.observe(this.viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
         viewBinding.btnAddNote.setOnClickListener {
             findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(null))
+        }
+
+        viewBinding.ivLogOut.setOnClickListener {
+            viewModel.logOut()
+            findNavController().navigateSafe(MainFragmentDirections.toLoginScreenFragment())
         }
 
         viewBinding.recyclerView.smoothScrollToPosition(adapter.itemCount)
@@ -57,10 +67,14 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         }
         val noteHelper = ItemTouchHelper(simpleSwipeCallBack)
         noteHelper.attachToRecyclerView(viewBinding.recyclerView)
+
+        args.userName.let { userName ->
+            viewBinding.toolbar.title = userName
+        }
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
-        viewBinding.toolbar.setPadding(0, top, 0, 0)
+        viewBinding.toolbar.setVerticalMargin(marginTop = top)
         viewBinding.recyclerView.setPadding(0, 0, 0, bottom)
         viewBinding.btnAddNote.setVerticalMargin(marginBottom = bottom)
     }

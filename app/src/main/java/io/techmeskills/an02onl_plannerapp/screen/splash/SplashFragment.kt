@@ -23,7 +23,7 @@ class SplashFragment : NavigationFragment<FragmentSplashBinding>(R.layout.fragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.root.postDelayed({
-            findNavController().navigateSafe(SplashFragmentDirections.toMainFragment())
+            findNavController().navigateSafe(SplashFragmentDirections.toLoginScreenFragment())
         }, 600)
     }
 
