@@ -50,6 +50,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="20.01.2021" />
 
+            <ImageView
+                android:id="@+id/ivCloud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_cloud"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDate"
+                app:layout_constraintEnd_toStartOf="@+id/tvDate"
+                app:layout_constraintTop_toTopOf="@+id/tvDate"
+                app:tint="@color/blue"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

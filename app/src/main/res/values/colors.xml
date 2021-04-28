@@ -12,4 +12,5 @@
     <color name="cardViewBackground">#ECE185</color>
     <color name="editTextShapeColor">#02707E</color>
     <color name="loginScreenBtnColor">#0563B5</color>
+    <color name="blue">#59A4E4</color>
 </resources>

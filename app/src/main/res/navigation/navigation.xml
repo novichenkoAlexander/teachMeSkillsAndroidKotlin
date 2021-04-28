@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/loginScreenFragment"
-        android:name="io.techmeskills.an02onl_plannerapp.screen.main.LoginScreenFragment"
+        android:name="io.techmeskills.an02onl_plannerapp.screen.main.login.LoginScreenFragment"
         android:label="LoginScreenFragment"
         tools:layout="@layout/fragment_login">
         <action

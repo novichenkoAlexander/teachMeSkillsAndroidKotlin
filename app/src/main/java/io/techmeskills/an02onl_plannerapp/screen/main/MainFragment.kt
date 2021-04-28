@@ -2,10 +2,14 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentMainBinding
 import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
@@ -66,6 +70,28 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         viewModel.currentUserNameLiveData.observe(this.viewLifecycleOwner) { userName ->
             viewBinding.toolbar.title = userName
         }
+
+        viewBinding.ivCloud.setOnClickListener {
+            showCloudDialog()
+        }
+
+        viewModel.progressLifeData.observe(this.viewLifecycleOwner) { success ->
+            if (success.not()) {
+                Toast.makeText(requireContext(), R.string.cloud_failed, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun showCloudDialog() {
+        MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.cloud_title)
+            .setMessage(R.string.pick_action)
+            .setPositiveButton(R.string.action_download) { dialog, _ ->
+                viewModel.downloadNotes()
+                dialog.cancel()
+            }.setNegativeButton(R.string.action_upload) { dialog, _ ->
+                viewModel.uploadNotes()
+                dialog.cancel()
+            }.show()
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
