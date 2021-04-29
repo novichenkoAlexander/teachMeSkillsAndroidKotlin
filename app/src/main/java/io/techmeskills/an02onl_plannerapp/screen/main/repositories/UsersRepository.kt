@@ -1,15 +1,16 @@
 package io.techmeskills.an02onl_plannerapp.screen.main.repositories
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.provider.Settings
 import io.techmeskills.an02onl_plannerapp.screen.main.database.UsersDao
 import io.techmeskills.an02onl_plannerapp.screen.main.datastore.AppSettings
 import io.techmeskills.an02onl_plannerapp.screen.main.models.User
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 
-class UsersRepository(private val usersDao: UsersDao, private val appSettings: AppSettings) {
+class UsersRepository(context: Context, private val usersDao: UsersDao, private val appSettings: AppSettings) {
 
     suspend fun login(userName: String, password: String): Boolean {
         var isPasswordCorrect = false
@@ -43,6 +44,14 @@ class UsersRepository(private val usersDao: UsersDao, private val appSettings: A
         }
     }
 
+    fun getCurrentUserName(): Flow<String> = appSettings.userIdFlow().flatMapLatest { userId ->
+        usersDao.getUserNameByIdFlow(userId)
+    }
+
+    fun getCurrentUserById(): Flow<User> = appSettings.userIdFlow().flatMapLatest { userId ->
+        usersDao.getUserById(userId)
+    }
+
     fun checkUserLoggedIn(): Flow<Boolean> =
         appSettings.userIdFlow().map { it >= 0 }.flowOn(Dispatchers.IO)
 
@@ -51,4 +60,7 @@ class UsersRepository(private val usersDao: UsersDao, private val appSettings: A
             appSettings.setUserId(-1)
         }
     }
+
+    @SuppressLint("HardwareIds")
+    val phoneId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 }

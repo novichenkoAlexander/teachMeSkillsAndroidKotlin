@@ -1,20 +1,24 @@
 package io.techmeskills.an02onl_plannerapp.screen.main
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
+import io.techmeskills.an02onl_plannerapp.screen.main.repositories.CloudRepository
 import io.techmeskills.an02onl_plannerapp.screen.main.repositories.NotesRepository
 import io.techmeskills.an02onl_plannerapp.screen.main.repositories.UsersRepository
 import io.techmeskills.an02onl_plannerapp.support.CoroutineViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val notesRepository: NotesRepository,
-    private val usersRepository: UsersRepository
+    private val usersRepository: UsersRepository,
+    private val cloudRepository: CloudRepository
 ) : CoroutineViewModel() {
 
-    val notesLiveData = notesRepository.currentUserNotesFlow.flowOn(Dispatchers.IO).map { it }.asLiveData()
+    val currentUserNameLiveData = usersRepository.getCurrentUserName().asLiveData()
+
+    val notesLiveData = notesRepository.currentUserNotesFlow.asLiveData()
+
+    val progressLifeData = MutableLiveData<Boolean>()
 
     fun deleteNote(pos: Int) {
         launch {
@@ -27,6 +31,16 @@ class MainViewModel(
         launch {
             usersRepository.logout()
         }
+    }
+
+    fun uploadNotes() = launch {
+        val result = cloudRepository.uploadNotes()
+        progressLifeData.postValue(result)
+    }
+
+    fun downloadNotes() = launch {
+        val result = cloudRepository.downloadNotes()
+        progressLifeData.postValue(result)
     }
 
 }

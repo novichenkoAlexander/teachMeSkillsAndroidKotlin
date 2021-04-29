@@ -17,4 +17,11 @@
     <string name="login_screen_password">Password</string>
     <string name="login_screen_password_hint">********</string>
     <string name="login_screen_btn_login">Login</string>
+    <string name="cloud_title">Cloud</string>
+    <string name="pick_action">Pick action</string>
+    <string name="action_upload">Upload</string>
+    <string name="action_download">Download</string>
+    <string name="cloud_failed">Failed to download notes</string>
+
+
 </resources>

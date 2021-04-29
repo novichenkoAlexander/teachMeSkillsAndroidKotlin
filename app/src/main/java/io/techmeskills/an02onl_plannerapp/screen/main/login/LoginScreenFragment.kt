@@ -1,4 +1,4 @@
-package io.techmeskills.an02onl_plannerapp.screen.main
+package io.techmeskills.an02onl_plannerapp.screen.main.login
 
 
 import android.os.Bundle
@@ -41,9 +41,7 @@ class LoginScreenFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fr
         viewModel.loggedIn.observe(this.viewLifecycleOwner) { loggedIn ->
             if (loggedIn) {
                 findNavController().navigateSafe(
-                    LoginScreenFragmentDirections.toMainFragment(
-                        viewBinding.etUserName.text.toString()
-                    )
+                    LoginScreenFragmentDirections.toMainFragment()
                 )
             } else {
                 viewBinding.root.alpha = 1f
