@@ -9,10 +9,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "users", indices = [Index(value = ["name"], unique = true)])
 class User(
 
+    @PrimaryKey
     @ColumnInfo(name = "name")
     val name: String,
 
-    @PrimaryKey
     @ColumnInfo(name = "password")
     val password: String
 )
