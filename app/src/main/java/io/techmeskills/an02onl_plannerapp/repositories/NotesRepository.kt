@@ -1,8 +1,8 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.repositories
+package io.techmeskills.an02onl_plannerapp.repositories
 
-import io.techmeskills.an02onl_plannerapp.screen.main.database.NotesDao
-import io.techmeskills.an02onl_plannerapp.screen.main.datastore.AppSettings
-import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
+import io.techmeskills.an02onl_plannerapp.database.NotesDao
+import io.techmeskills.an02onl_plannerapp.datastore.AppSettings
+import io.techmeskills.an02onl_plannerapp.models.Note
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -41,7 +41,7 @@ class NotesRepository(private val notesDao: NotesDao, private val appSettings: A
 
     suspend fun addNotes(notes: List<Note>) {
         withContext(Dispatchers.IO) {
-            notesDao.insertNotes(notes)
+            notesDao.clearAndSaveNotes(notes)
         }
     }
 

@@ -1,10 +1,10 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.repositories
+package io.techmeskills.an02onl_plannerapp.repositories
 
-import io.techmeskills.an02onl_plannerapp.screen.main.cloud.ApiInterface
-import io.techmeskills.an02onl_plannerapp.screen.main.cloud.CloudNote
-import io.techmeskills.an02onl_plannerapp.screen.main.cloud.CloudUser
-import io.techmeskills.an02onl_plannerapp.screen.main.cloud.UploadNotesRequestBody
-import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
+import io.techmeskills.an02onl_plannerapp.cloud.ApiInterface
+import io.techmeskills.an02onl_plannerapp.cloud.CloudNote
+import io.techmeskills.an02onl_plannerapp.cloud.CloudUser
+import io.techmeskills.an02onl_plannerapp.cloud.UploadNotesRequestBody
+import io.techmeskills.an02onl_plannerapp.models.Note
 import kotlinx.coroutines.flow.first
 
 class CloudRepository(
@@ -30,8 +30,7 @@ class CloudRepository(
     suspend fun importNotes(): Boolean {
         val user = usersRepository.getCurrentUserById().first()
         val response = apiInterface.importNotes(user.name, usersRepository.phoneId)
-        val cloudNotes = response.body() ?: emptyList()
-        val notes = cloudNotes.map { cloudNote ->
+        val cloudNotes = (response.body() ?: emptyList()).map { cloudNote ->
             Note(
                 title = cloudNote.noteTitle,
                 date = cloudNote.date,
@@ -39,7 +38,10 @@ class CloudRepository(
                 fromCloud = true
             )
         }
-        notesRepository.addNotes(notes)
+        val currentUserNotes = notesRepository.getCurrentUsersNotes()
+        val resultNotesList = (cloudNotes + currentUserNotes).distinctBy { it.title + it.date }
+
+        notesRepository.addNotes(resultNotesList)
         return response.isSuccessful
     }
 }

@@ -1,12 +1,11 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.repositories
+package io.techmeskills.an02onl_plannerapp.repositories
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
-import androidx.lifecycle.asLiveData
-import io.techmeskills.an02onl_plannerapp.screen.main.database.UsersDao
-import io.techmeskills.an02onl_plannerapp.screen.main.datastore.AppSettings
-import io.techmeskills.an02onl_plannerapp.screen.main.models.User
+import io.techmeskills.an02onl_plannerapp.database.UsersDao
+import io.techmeskills.an02onl_plannerapp.datastore.AppSettings
+import io.techmeskills.an02onl_plannerapp.models.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext

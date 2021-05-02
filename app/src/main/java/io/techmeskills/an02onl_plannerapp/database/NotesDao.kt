@@ -1,8 +1,8 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.database
+package io.techmeskills.an02onl_plannerapp.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
+import io.techmeskills.an02onl_plannerapp.models.Note
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -16,6 +16,15 @@ abstract class NotesDao {
 
     @Delete
     abstract fun deleteNote(note: Note)
+
+    @Query("DELETE FROM notes")
+    abstract fun clearTable()
+
+    @Transaction
+    open fun clearAndSaveNotes(notes: List<Note>) {
+        clearTable()
+        insertNotes(notes)
+    }
 
     @Update
     abstract fun updateNote(note: Note)

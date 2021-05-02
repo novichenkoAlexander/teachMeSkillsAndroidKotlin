@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/loginScreenFragment"
-        android:name="io.techmeskills.an02onl_plannerapp.screen.main.login.LoginScreenFragment"
+        android:name="io.techmeskills.an02onl_plannerapp.screen.login.LoginScreenFragment"
         android:label="LoginScreenFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -50,7 +50,7 @@
         tools:layout="@layout/fragment_note">
         <argument
             android:name="noteToEdit"
-            app:argType="io.techmeskills.an02onl_plannerapp.screen.main.models.Note"
+            app:argType="io.techmeskills.an02onl_plannerapp.models.Note"
             app:nullable="true" />
     </fragment>
 

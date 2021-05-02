@@ -1,4 +1,4 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.cloud
+package io.techmeskills.an02onl_plannerapp.cloud
 
 import com.google.gson.annotations.SerializedName
 

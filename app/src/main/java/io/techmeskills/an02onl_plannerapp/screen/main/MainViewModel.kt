@@ -2,9 +2,9 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
-import io.techmeskills.an02onl_plannerapp.screen.main.repositories.CloudRepository
-import io.techmeskills.an02onl_plannerapp.screen.main.repositories.NotesRepository
-import io.techmeskills.an02onl_plannerapp.screen.main.repositories.UsersRepository
+import io.techmeskills.an02onl_plannerapp.repositories.CloudRepository
+import io.techmeskills.an02onl_plannerapp.repositories.NotesRepository
+import io.techmeskills.an02onl_plannerapp.repositories.UsersRepository
 import io.techmeskills.an02onl_plannerapp.support.CoroutineViewModel
 import kotlinx.coroutines.launch
 

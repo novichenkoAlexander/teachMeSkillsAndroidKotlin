@@ -1,9 +1,9 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.login
+package io.techmeskills.an02onl_plannerapp.screen.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
-import io.techmeskills.an02onl_plannerapp.screen.main.repositories.UsersRepository
+import io.techmeskills.an02onl_plannerapp.repositories.UsersRepository
 import io.techmeskills.an02onl_plannerapp.support.CoroutineViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception

@@ -1,4 +1,4 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.cloud
+package io.techmeskills.an02onl_plannerapp.cloud
 
 import io.techmeskills.an02onl_plannerapp.BuildConfig
 import okhttp3.OkHttpClient
@@ -13,7 +13,7 @@ import retrofit2.http.Query
 
 interface ApiInterface {
 
-    @GET("importNotes")//!!!!!!name importNotes
+    @GET("importNotes")
     suspend fun importNotes(
         @Query("userName") userName: String,
         @Query("phoneId") phoneId: String

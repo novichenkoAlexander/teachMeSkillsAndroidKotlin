@@ -1,8 +1,7 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.datastore
+package io.techmeskills.an02onl_plannerapp.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStoreFile
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey

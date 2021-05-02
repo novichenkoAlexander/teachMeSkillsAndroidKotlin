@@ -1,18 +1,16 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.login
+package io.techmeskills.an02onl_plannerapp.screen.login
 
 
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.view.*
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import io.techmeskills.an02onl_plannerapp.R
-import by.kirich1409.viewbindingdelegate.viewBinding
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentLoginBinding
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.navigateSafe
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import by.kirich1409.viewbindingdelegate.viewBinding
 import android.widget.Toast
 
 

@@ -1,12 +1,12 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.database
+package io.techmeskills.an02onl_plannerapp.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import io.techmeskills.an02onl_plannerapp.BuildConfig
-import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
-import io.techmeskills.an02onl_plannerapp.screen.main.models.User
+import io.techmeskills.an02onl_plannerapp.models.Note
+import io.techmeskills.an02onl_plannerapp.models.User
 
 
 @Database(

@@ -1,4 +1,4 @@
-package io.techmeskills.an02onl_plannerapp.screen.main.models
+package io.techmeskills.an02onl_plannerapp.models
 
 import android.os.Parcelable
 import androidx.room.Entity
