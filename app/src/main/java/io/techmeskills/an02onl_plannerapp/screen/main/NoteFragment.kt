@@ -42,14 +42,15 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
                             id = it.id,
                             title = viewBinding.etInfo.text.toString(),
                             date = dateFormatter.format(viewBinding.dataPicker.getSelectedDate()),
-                            userId = it.userId
+                            userName = it.userName
                         )
                     )
                 } ?: kotlin.run {
                     viewModel.addNewNote(
                         Note(
                             title = viewBinding.etInfo.text.toString(),
-                            date = dateFormatter.format(viewBinding.dataPicker.getSelectedDate())
+                            date = dateFormatter.format(viewBinding.dataPicker.getSelectedDate()),
+                            userName = ""
                         )
                     )
                 }

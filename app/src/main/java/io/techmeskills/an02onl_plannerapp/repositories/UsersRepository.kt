@@ -16,13 +16,12 @@ class UsersRepository(context: Context, private val usersDao: UsersDao, private 
         var isPasswordCorrect = false
         withContext(Dispatchers.IO) {
             if (checkUserExists(userName).not()) {
-                val userId = usersDao.addNewUser(User(name = userName, password = password))
-                appSettings.setUserId(userId)
+                usersDao.addNewUser(User(name = userName, password = password))
+                appSettings.setUserName(userName)
                 isPasswordCorrect = true
             } else {
                 if (checkUserPasswordIsCorrect(userName, password)) {
-                    val userId = usersDao.getUserId(userName)
-                    appSettings.setUserId(userId)
+                    appSettings.setUserName(userName)
                     isPasswordCorrect = true
                 } else {
                     isPasswordCorrect
@@ -44,20 +43,24 @@ class UsersRepository(context: Context, private val usersDao: UsersDao, private 
         }
     }
 
-    fun getCurrentUserName(): Flow<String> = appSettings.userIdFlow().flatMapLatest { userId ->
-        usersDao.getUserNameByIdFlow(userId)
-    }
+    fun getCurrentUserName(): Flow<String> = appSettings.userNameFlow().map { it }
 
-    fun getCurrentUserById(): Flow<User> = appSettings.userIdFlow().flatMapLatest { userId ->
-        usersDao.getUserById(userId)
-    }
+    fun getCurrentUserById(): Flow<User> = appSettings.userNameFlow().map { User(it, it) }
+
 
     fun checkUserLoggedIn(): Flow<Boolean> =
-        appSettings.userIdFlow().map { it >= 0 }.flowOn(Dispatchers.IO)
+        appSettings.userNameFlow().map { it.isNotEmpty() }.flowOn(Dispatchers.IO)
 
     suspend fun logout() {
         withContext(Dispatchers.IO) {
-            appSettings.setUserId(-1)
+            appSettings.setUserName("")
+        }
+    }
+
+    suspend fun deleteCurrentUser() {
+        withContext(Dispatchers.IO) {
+            usersDao.deleteUser(User(appSettings.getUserName(), ""))
+            logout()
         }
     }
 

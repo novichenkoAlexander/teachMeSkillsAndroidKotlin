@@ -16,7 +16,7 @@ class CloudRepository(
     suspend fun exportNotes(): Boolean {
         val user = usersRepository.getCurrentUserById().first()
         val notes = notesRepository.getCurrentUsersNotes()
-        val cloudUser = CloudUser(userId = user.id, userName = user.name)
+        val cloudUser = CloudUser(userName = user.name)
         val cloudNotes =
             notes.map { cloudNote -> CloudNote(noteTitle = cloudNote.title, date = cloudNote.date) }
         val uploadNotesRequestBody = UploadNotesRequestBody(cloudUser, usersRepository.phoneId, cloudNotes)
@@ -34,7 +34,7 @@ class CloudRepository(
             Note(
                 title = cloudNote.noteTitle,
                 date = cloudNote.date,
-                userId = user.id,
+                userName = user.name,
                 fromCloud = true
             )
         }

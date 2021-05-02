@@ -25,6 +25,13 @@
     <string name="cloud_success">Cloud operation successfully performed</string>
     <string name="export_notes">ExportNotes</string>
     <string name="import_notes">ImportNotes</string>
+    <string name="btn_new_note">New note</string>
+    <string name="delete_user">Delete User</string>
+    <string name="log_out">Log Out</string>
+    <string name="delete_request_title">Cloud storage</string>
+    <string name="delete_request_message">Are you shure? All data will be removed from this devie!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
 </resources>

@@ -11,6 +11,7 @@ import io.techmeskills.an02onl_plannerapp.datastore.AppSettings
 import io.techmeskills.an02onl_plannerapp.repositories.CloudRepository
 import io.techmeskills.an02onl_plannerapp.repositories.NotesRepository
 import io.techmeskills.an02onl_plannerapp.repositories.UsersRepository
+import io.techmeskills.an02onl_plannerapp.screen.settings.SettingsViewModel
 import io.techmeskills.an02onl_plannerapp.screen.splash.SplashViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
@@ -32,6 +33,7 @@ class PlannerApp : Application() {
         viewModel { MainViewModel(get(), get(), get()) }
         viewModel { NoteViewModel(get()) }
         viewModel { LoginScreenViewModel(get()) }
+        viewModel { SettingsViewModel(get()) }
     }
 
     private val dataBaseModule = module {
@@ -43,7 +45,7 @@ class PlannerApp : Application() {
 
     private val repositories = module {
         factory { UsersRepository(get(), get(), get()) }
-        factory { NotesRepository(get(), get()) }
+        factory { NotesRepository(get(), get(), get()) }
         factory { CloudRepository(get(), get(), get()) }
     }
 

@@ -8,13 +8,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "users", indices = [Index(value = ["name"], unique = true)])
 class User(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    val id: Long = 0L,
 
     @ColumnInfo(name = "name")
     val name: String,
 
+    @PrimaryKey
     @ColumnInfo(name = "password")
     val password: String
 )

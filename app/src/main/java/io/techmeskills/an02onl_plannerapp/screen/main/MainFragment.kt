@@ -72,9 +72,8 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(null))
         }
 
-        viewBinding.ivLogOut.setOnClickListener {
-            viewModel.logOut()
-            findNavController().navigateSafe(MainFragmentDirections.toLoginScreenFragment())
+        viewBinding.ivSettings.setOnClickListener {
+            findNavController().navigateSafe(MainFragmentDirections.toSettingsFragment())
         }
 
         viewBinding.recyclerView.smoothScrollToPosition(adapter.itemCount)

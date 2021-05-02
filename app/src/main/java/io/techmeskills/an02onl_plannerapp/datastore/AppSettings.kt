@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import io.techmeskills.an02onl_plannerapp.BuildConfig
 import kotlinx.coroutines.flow.Flow
@@ -20,19 +20,19 @@ class AppSettings(context: Context) {
 
     private val dataStore = context.dataStore
 
-    fun userIdFlow(): Flow<Long> = dataStore.data.map { preferences ->
-        preferences[longPreferencesKey(USER_ID_KEY)] ?: -1
+    fun userNameFlow(): Flow<String> = dataStore.data.map { preferences ->
+        preferences[stringPreferencesKey(USER_KEY)] ?: ""
     }
 
-    suspend fun getUserId(): Long = userIdFlow().first()
+    suspend fun getUserName(): String = userNameFlow().first()
 
-    suspend fun setUserId(userId: Long) {
+    suspend fun setUserName(userName: String) {
         dataStore.edit { preferences ->
-            preferences[longPreferencesKey(USER_ID_KEY)] = userId
+            preferences[stringPreferencesKey(USER_KEY)] = userName
         }
     }
 
     companion object {
-        private const val USER_ID_KEY = "USER_ID_KEY"
+        private const val USER_KEY = "USER_KEY"
     }
 }

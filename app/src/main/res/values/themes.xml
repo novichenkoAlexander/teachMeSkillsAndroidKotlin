@@ -15,6 +15,6 @@
     </style>
 
     <style name="CircularProgressBar" parent="Theme.AppCompat.DayNight">
-        <item name="colorAccent">@color/yellow</item>
+        <item name="colorAccent">@color/teal_200</item>
     </style>
 </resources>
