@@ -13,26 +13,27 @@ import retrofit2.http.Query
 
 interface ApiInterface {
 
-    @GET("downloadNotes")
-    suspend fun downloadNotes(
+    @GET("importNotes")//!!!!!!name importNotes
+    suspend fun importNotes(
         @Query("userName") userName: String,
         @Query("phoneId") phoneId: String
     ): Response<List<CloudNote>>
 
-    @POST("uploadNotes")
-    suspend fun uploadNotes(@Body body: UploadNotesRequestBody): Response<Any>
+    @POST("exportNotes")// exportNotes
+    suspend fun exportNotes(@Body body: UploadNotesRequestBody): Response<Any>
 
     companion object {
         private const val API_URL = "https://us-central1-plannerapi-2d0bf.cloudfunctions.net"
 
         fun get(): ApiInterface = Retrofit.Builder().baseUrl(API_URL)
-            .addConverterFactory(GsonConverterFactory.create()).client(
-            OkHttpClient.Builder().apply {
-                if (BuildConfig.DEBUG) {
-                    addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                }
-            }.build()
-        )
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(
+                OkHttpClient.Builder().apply {
+                    if (BuildConfig.DEBUG) {
+                        addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    }
+                }.build()
+            )
             .build().create(ApiInterface::class.java)
     }
 

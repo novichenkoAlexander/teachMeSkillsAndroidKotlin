@@ -3,6 +3,7 @@ package io.techmeskills.an02onl_plannerapp.screen.main.repositories
 import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
+import androidx.lifecycle.asLiveData
 import io.techmeskills.an02onl_plannerapp.screen.main.database.UsersDao
 import io.techmeskills.an02onl_plannerapp.screen.main.datastore.AppSettings
 import io.techmeskills.an02onl_plannerapp.screen.main.models.User
@@ -60,6 +61,8 @@ class UsersRepository(context: Context, private val usersDao: UsersDao, private 
             appSettings.setUserId(-1)
         }
     }
+
+    fun getAllUsersNames() = usersDao.getAllUserNames()
 
     @SuppressLint("HardwareIds")
     val phoneId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)

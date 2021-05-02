@@ -10,7 +10,8 @@
     <color name="grey">#989898</color>
     <color name="user">#ECE9D5</color>
     <color name="cardViewBackground">#ECE185</color>
-    <color name="editTextShapeColor">#02707E</color>
+    <color name="editTextShapeColor">#F0000000</color>
     <color name="loginScreenBtnColor">#0563B5</color>
     <color name="blue">#59A4E4</color>
+    <color name="yellow">#F6DE0A</color>
 </resources>

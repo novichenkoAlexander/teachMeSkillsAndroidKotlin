@@ -14,14 +14,16 @@ class LoginScreenViewModel(private val usersRepository: UsersRepository) : Corou
 
     val loggedIn: LiveData<Boolean> = usersRepository.checkUserLoggedIn().asLiveData()
 
+    val autoCompleteUserNameLiveData = usersRepository.getAllUsersNames().asLiveData()
+
     fun login(userName: String, password: String) {
         launch {
             try {
                 when {
                     userName.isNotBlank() && password.isNotBlank() ->
                         if (!usersRepository.login(userName, password)) {
-                        errorLiveData.postValue("Wrong password")
-                    }
+                            errorLiveData.postValue("Wrong password")
+                        }
                     userName.isNotBlank() -> errorLiveData.postValue("Enter password")
                     password.isNotBlank() -> errorLiveData.postValue("Enter user name")
                     userName.isBlank() && password.isBlank() ->

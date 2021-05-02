@@ -22,6 +22,9 @@
     <string name="action_upload">Upload</string>
     <string name="action_download">Download</string>
     <string name="cloud_failed">Failed to download notes</string>
+    <string name="cloud_success">Cloud operation successfully performed</string>
+    <string name="export_notes">ExportNotes</string>
+    <string name="import_notes">ImportNotes</string>
 
 
 </resources>

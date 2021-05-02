@@ -33,13 +33,13 @@ class MainViewModel(
         }
     }
 
-    fun uploadNotes() = launch {
-        val result = cloudRepository.uploadNotes()
+    fun exportNotes() = launch {
+        val result = cloudRepository.exportNotes()
         progressLifeData.postValue(result)
     }
 
-    fun downloadNotes() = launch {
-        val result = cloudRepository.downloadNotes()
+    fun importNotes() = launch {
+        val result = cloudRepository.importNotes()
         progressLifeData.postValue(result)
     }
 

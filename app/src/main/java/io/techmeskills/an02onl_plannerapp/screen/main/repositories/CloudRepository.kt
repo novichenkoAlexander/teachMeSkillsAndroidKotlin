@@ -1,4 +1,4 @@
- package io.techmeskills.an02onl_plannerapp.screen.main.repositories
+package io.techmeskills.an02onl_plannerapp.screen.main.repositories
 
 import io.techmeskills.an02onl_plannerapp.screen.main.cloud.ApiInterface
 import io.techmeskills.an02onl_plannerapp.screen.main.cloud.CloudNote
@@ -13,24 +13,23 @@ class CloudRepository(
     private val notesRepository: NotesRepository
 ) {
 
-    suspend fun uploadNotes(): Boolean {
+    suspend fun exportNotes(): Boolean {
         val user = usersRepository.getCurrentUserById().first()
         val notes = notesRepository.getCurrentUsersNotes()
         val cloudUser = CloudUser(userId = user.id, userName = user.name)
         val cloudNotes =
-            notes.map { cloudNote -> CloudNote(noteId = cloudNote.id, noteTitle = cloudNote.title, date = cloudNote.date) }
+            notes.map { cloudNote -> CloudNote(noteTitle = cloudNote.title, date = cloudNote.date) }
         val uploadNotesRequestBody = UploadNotesRequestBody(cloudUser, usersRepository.phoneId, cloudNotes)
-        val uploadResult = apiInterface.uploadNotes(uploadNotesRequestBody).isSuccessful
-        print("UPLOAD: $uploadResult")
+        val uploadResult = apiInterface.exportNotes(uploadNotesRequestBody).isSuccessful
         if (uploadResult) {
             notesRepository.setAllNotesSyncWithCloud()
         }
         return uploadResult
     }
 
-    suspend fun downloadNotes(): Boolean {
+    suspend fun importNotes(): Boolean {
         val user = usersRepository.getCurrentUserById().first()
-        val response = apiInterface.downloadNotes(user.name, usersRepository.phoneId)
+        val response = apiInterface.importNotes(user.name, usersRepository.phoneId)
         val cloudNotes = response.body() ?: emptyList()
         val notes = cloudNotes.map { cloudNote ->
             Note(

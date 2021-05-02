@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.*
+import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import io.techmeskills.an02onl_plannerapp.R
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -38,6 +39,13 @@ class LoginScreenFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fr
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
 
+        viewModel.autoCompleteUserNameLiveData.observe(this.viewLifecycleOwner) { userNames ->
+            val arrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                requireContext(), R.layout.select_dialog_item, userNames
+            )
+            viewBinding.etUserName.setAdapter(arrayAdapter)
+        }
+
         viewModel.loggedIn.observe(this.viewLifecycleOwner) { loggedIn ->
             if (loggedIn) {
                 findNavController().navigateSafe(
@@ -48,19 +56,8 @@ class LoginScreenFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fr
             }
         }
 
-        viewBinding.btnPasswordVisibility.setOnClickListener {
-
-            if (viewBinding.btnPasswordVisibility.text.equals("show")) {
-                viewBinding.etUserPass.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                viewBinding.btnPasswordVisibility.text = HIDE
-            } else {
-                viewBinding.etUserPass.transformationMethod = PasswordTransformationMethod.getInstance()
-                viewBinding.btnPasswordVisibility.text = SHOW
-            }
-        }
-
         viewBinding.btnLogIn.setOnClickListener {
-            viewModel.login(viewBinding.etUserName.text.toString(), viewBinding.etUserPass.text.toString())
+            viewModel.login(viewBinding.etUserName.text.toString(), viewBinding.etPassword.text.toString())
         }
     }
 
@@ -69,8 +66,4 @@ class LoginScreenFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fr
         viewBinding.root.setPadding(0, top, 0, 0)
     }
 
-    companion object {
-        private const val HIDE = "hide"
-        private const val SHOW = "show"
-    }
 }
