@@ -65,7 +65,7 @@
         <action
             android:id="@+id/toLoginScreenFragment"
             app:destination="@id/loginScreenFragment"
-            app:enterAnim="@anim/slide_in_right"
+            app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true" />
