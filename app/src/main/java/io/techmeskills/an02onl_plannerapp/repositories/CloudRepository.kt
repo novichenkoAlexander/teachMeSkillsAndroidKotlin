@@ -18,8 +18,8 @@ class CloudRepository(
         val notes = notesRepository.getCurrentUsersNotes()
         val cloudUser = CloudUser(userName = user.name)
         val cloudNotes =
-            notes.map { cloudNote -> CloudNote(noteTitle = cloudNote.title, date = cloudNote.date, time = cloudNote.time) }
-        val uploadNotesRequestBody = UploadNotesRequestBody(cloudUser, usersRepository.phoneId, cloudNotes)
+            notes.map { cloudNote -> cloudNote.time?.let { CloudNote(noteTitle = cloudNote.title, date = cloudNote.date, time = it) } }
+        val uploadNotesRequestBody = UploadNotesRequestBody(cloudUser, usersRepository.phoneId, cloudNotes as List<CloudNote>)
         val uploadResult = apiInterface.exportNotes(uploadNotesRequestBody).isSuccessful
         if (uploadResult) {
             notesRepository.setAllNotesSyncWithCloud()

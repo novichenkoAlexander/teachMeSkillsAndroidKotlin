@@ -23,7 +23,7 @@ open class Note(
 
     val title: String,
     val date: String,
-    val time: String,
+    val time: String? = null,
 
     @ColumnInfo(index = true, name = "userName")
 val userName: String,

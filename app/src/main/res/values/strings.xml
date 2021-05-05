@@ -36,6 +36,8 @@
     <string name="time_picker_title">Please select time</string>
     <string name="time_picker_prefix">>></string>
     <string name="time_picker_suffix"> &gt;&gt; </string>
+    <string name="btn_date_title">DATE</string>
+    <string name="btn_time_title">TIME</string>
 
 
 </resources>

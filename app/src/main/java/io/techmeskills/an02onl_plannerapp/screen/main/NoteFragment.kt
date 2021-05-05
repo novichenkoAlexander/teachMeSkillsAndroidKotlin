@@ -105,7 +105,7 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
             setTitleColor(R.color.white)
             setPreselectedTime(
                 TimeValue(
-                    calendar.get(Calendar.HOUR),
+                    calendar.get(Calendar.HOUR_OF_DAY),
                     calendar.get(Calendar.MINUTE)
                 )
             )
