@@ -41,6 +41,7 @@ class NotesRepository(
                 Note(
                     title = note.title,
                     date = note.date,
+                    time = note.time,
                     userName = appSettings.getUserName()
                 )
             )

@@ -23,9 +23,10 @@ open class Note(
 
     val title: String,
     val date: String,
+    val time: String,
 
     @ColumnInfo(index = true, name = "userName")
-    val userName: String,
+val userName: String,
 
-    val fromCloud: Boolean = false
+val fromCloud: Boolean = false
 ) : Parcelable

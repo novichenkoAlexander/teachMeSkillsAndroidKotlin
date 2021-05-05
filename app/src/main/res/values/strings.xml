@@ -29,10 +29,13 @@
     <string name="delete_user">Delete User</string>
     <string name="log_out">Log Out</string>
     <string name="delete_request_title">Cloud storage</string>
-    <string name="delete_request_message">Are you shure? All data will be removed from this devie!</string>
+    <string name="delete_request_message">Are you sure? All data will be removed from this devie!</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="cloud_options">Cloud options</string>
+    <string name="time_picker_title">Please select time</string>
+    <string name="time_picker_prefix">>></string>
+    <string name="time_picker_suffix"> &gt;&gt; </string>
 
 
 </resources>
