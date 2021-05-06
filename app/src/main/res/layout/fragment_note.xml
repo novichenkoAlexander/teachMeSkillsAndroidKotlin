@@ -39,33 +39,44 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnDate"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
         android:layout_marginTop="40dp"
-        android:background="@color/purple_200"
+        android:background="@drawable/date_time_shape"
+        android:drawableStart="@drawable/ic_calendar_icon"
         android:elevation="4dp"
         android:hint="@string/btn_date_title"
-        android:textColor="@color/black"
+        android:paddingStart="20dp"
+        android:paddingEnd="40dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/btnTime"
+        app:layout_constraintBottom_toTopOf="@id/btnTime"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etInfo" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnTime"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:background="@color/purple_200"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/date_time_shape"
+        android:drawableStart="@drawable/ic_time_icon"
         android:elevation="4dp"
         android:hint="@string/btn_time_title"
-        android:textColor="@color/black"
+        android:paddingStart="20dp"
+        android:paddingEnd="40dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnDate"
-        app:layout_constraintTop_toBottomOf="@id/etInfo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnDate" />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -73,16 +84,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
         android:background="@color/loginScreenBtnColor"
         android:text="@string/confirmBtnText"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintTop_toBottomOf="@id/btnTime" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

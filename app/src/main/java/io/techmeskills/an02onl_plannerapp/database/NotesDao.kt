@@ -28,6 +28,9 @@ abstract class NotesDao {
     @Update
     abstract fun updateNote(note: Note)
 
+    @Query("SELECT * FROM notes WHERE id==:noteId")
+    abstract fun getNoteById(noteId: Long): Note
+
     @Query("SELECT * FROM notes")
     abstract fun getAllNotes(): List<Note>
 
