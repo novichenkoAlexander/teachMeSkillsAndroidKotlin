@@ -38,13 +38,15 @@ class NotesRepository(
 
     suspend fun addNote(note: Note) {
         withContext(Dispatchers.IO) {
-            notificationRepository.setNotification(note)
+            if (note.isNotified) {
+                notificationRepository.setNotification(note)
+            }
             notesDao.insertNote(
                 Note(
                     title = note.title,
                     date = note.date,
-                    time = note.time,
-                    userName = appSettings.getUserName()
+                    userName = appSettings.getUserName(),
+                    isNotified = note.isNotified
                 )
             )
         }
@@ -58,10 +60,14 @@ class NotesRepository(
 
     suspend fun updateNote(note: Note) {
         withContext(Dispatchers.IO) {
-            val oldNote = notesDao.getNoteById(note.id)
-            notificationRepository.unsetNotification(oldNote)
-            notesDao.updateNote(note)
-            notificationRepository.setNotification(note)
+            if (note.isNotified) {
+                val oldNote = notesDao.getNoteById(note.id)
+                notificationRepository.unsetNotification(oldNote)
+                notesDao.updateNote(note)
+                notificationRepository.setNotification(note)
+            } else {
+                notesDao.updateNote(note)
+            }
         }
     }
 

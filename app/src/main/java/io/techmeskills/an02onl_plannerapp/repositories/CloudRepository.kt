@@ -18,7 +18,7 @@ class CloudRepository(
         val notes = notesRepository.getCurrentUsersNotes()
         val cloudUser = CloudUser(userName = user.name)
         val cloudNotes =
-            notes.map { cloudNote -> cloudNote.time?.let { CloudNote(noteTitle = cloudNote.title, date = cloudNote.date, time = it) } }
+            notes.map { cloudNote -> CloudNote(noteTitle = cloudNote.title, date = cloudNote.date) }
         val uploadNotesRequestBody = UploadNotesRequestBody(cloudUser, usersRepository.phoneId, cloudNotes as List<CloudNote>)
         val uploadResult = apiInterface.exportNotes(uploadNotesRequestBody).isSuccessful
         if (uploadResult) {
@@ -34,7 +34,6 @@ class CloudRepository(
             Note(
                 title = cloudNote.noteTitle,
                 date = cloudNote.date,
-                time = cloudNote.time,
                 userName = user.name,
                 fromCloud = true
             )

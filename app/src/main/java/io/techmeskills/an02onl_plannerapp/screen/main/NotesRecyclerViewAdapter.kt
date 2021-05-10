@@ -1,5 +1,6 @@
 package io.techmeskills.an02onl_plannerapp.screen.main
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,7 @@ class NotesRecyclerViewAdapter(
         private val tvDate = itemView.findViewById<TextView>(R.id.tvDate)
         private val tvTime = itemView.findViewById<TextView>(R.id.tvTime)
         private val ivCloud = itemView.findViewById<ImageView>(R.id.ivCloud)
+        private val ivIsNotified = itemView.findViewById<ImageView>(R.id.ivNotify)
 
         init {
             itemView.setOnClickListener {
@@ -54,8 +56,9 @@ class NotesRecyclerViewAdapter(
         fun bind(item: Note) {
             tvTitle.text = item.title
             tvDate.text = item.date
-            tvTime.text = item.time
+//            tvTime.text = item.time
             ivCloud.isVisible = item.fromCloud
+            ivIsNotified.isVisible = item.isNotified
         }
     }
 }
@@ -66,7 +69,7 @@ class NoteAdapterDiffCallback : DiffUtil.ItemCallback<Note>() {
     }
 
     override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
-        return oldItem.date == newItem.date && oldItem.time == newItem.time && oldItem.title == newItem.title && oldItem.fromCloud == newItem.fromCloud
+        return oldItem.date == newItem.date && oldItem.title == newItem.title && oldItem.fromCloud == newItem.fromCloud
     }
 }
 

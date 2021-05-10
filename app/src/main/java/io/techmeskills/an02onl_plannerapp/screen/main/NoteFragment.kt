@@ -40,6 +40,18 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var isNotified = false
+
+        viewBinding.swNotify.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                isNotified = true
+                buttonView.text = "Notify"
+            } else {
+                isNotified = false
+                buttonView.text = "Not notify"
+            }
+        }
+
         viewBinding.btnConfirm.setOnClickListener {
             if (viewBinding.etInfo.text.isNotBlank()) {
 
@@ -48,18 +60,18 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
                         Note(
                             id = it.id,
                             title = viewBinding.etInfo.text.toString(),
-                            date = viewBinding.btnDate.text.toString(),
-                            time = viewBinding.btnTime.text.toString(),
-                            userName = it.userName
+                            date = "${viewBinding.btnDate.text} ${viewBinding.btnTime.text}",
+                            userName = it.userName,
+                            isNotified = isNotified
                         )
                     )
                 } ?: kotlin.run {
                     viewModel.addNewNote(
                         Note(
                             title = viewBinding.etInfo.text.toString(),
-                            date = viewBinding.btnDate.text.toString(),
-                            time = viewBinding.btnTime.text.toString(),
-                            userName = ""
+                            date = "${viewBinding.btnDate.text} ${viewBinding.btnTime.text}",
+                            userName = "",
+                            isNotified = isNotified
                         )
                     )
                 }
@@ -79,7 +91,7 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
         args.noteToEdit?.let { noteToEdit ->
             viewBinding.etInfo.setText(noteToEdit.title)
             viewBinding.btnDate.text = noteToEdit.date
-            viewBinding.btnTime.text = noteToEdit.time
+            viewBinding.btnTime.text = noteToEdit.date.substring(10)
         }
 
     }

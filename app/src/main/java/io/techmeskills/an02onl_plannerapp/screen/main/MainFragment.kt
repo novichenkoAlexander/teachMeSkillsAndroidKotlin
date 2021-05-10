@@ -48,6 +48,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet, null)
         val import = bottomSheetView.findViewById<TextView>(IMPORT_NOTES)
         val export = bottomSheetView.findViewById<TextView>(EXPORT_NOTES)
+
         dialog.setContentView(bottomSheetView, null)
         viewBinding.ivCloud.setOnClickListener {
             dialog.show()

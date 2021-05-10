@@ -8,8 +8,5 @@ class CloudNote(
     val noteTitle: String,
 
     @SerializedName("date")
-    val date: String,
-
-    @SerializedName("time")
-    val time: String
+    val date: String
 )

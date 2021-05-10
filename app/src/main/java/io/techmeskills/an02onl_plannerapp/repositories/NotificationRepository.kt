@@ -11,12 +11,16 @@ import java.util.*
 
 class NotificationRepository(private val context: Context, private val alarmManager: AlarmManager) {
 
-    private val dataAndTimeFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
+    private val dateAndTimeFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
+    private val dateFormatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
     fun setNotification(note: Note) {
-
         val calendar = Calendar.getInstance()
-        calendar.time = dataAndTimeFormatter.parse("${note.date} ${note.time}")
+        if (note.date.contains("[\\sw+]")) {
+            calendar.time = dateAndTimeFormatter.parse(note.date)
+        } else {
+            calendar.time = dateFormatter.parse(note.date)
+        }
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,

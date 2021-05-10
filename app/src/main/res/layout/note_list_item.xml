@@ -57,9 +57,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_cloud"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/tvDate"
                 app:layout_constraintEnd_toStartOf="@+id/tvDate"
                 app:layout_constraintTop_toTopOf="@+id/tvDate" />
+
+            <ImageView
+                android:id="@+id/ivNotify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_notify_icon"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@id/ivCloud"
+                app:layout_constraintTop_toBottomOf="@id/ivCloud"
+                app:layout_constraintTop_toTopOf="@id/ivCloud" />
 
             <TextView
                 android:id="@+id/tvTime"
