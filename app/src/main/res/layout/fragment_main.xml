@@ -10,13 +10,16 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/teal_700"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Planer App"
-        app:titleTextColor="@color/white" />
+        app:title="@string/app_name"
+        app:titleTextColor="@color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -31,22 +34,33 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:listitem="@layout/note_list_item" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <TextView
         android:id="@+id/btnAddNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="@string/AddNewBtnContext"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/add_new_note_shape"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="14dp"
+        android:text="@string/btn_new_note"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_add_new_note"
+        app:drawableTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_fi_rr_plus" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
-        android:id="@+id/ivLogOut"
+        android:id="@+id/ivSettings"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_log_out"
+        android:elevation="4dp"
+        android:src="@drawable/ic_settings_icon"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
@@ -55,12 +69,23 @@
         android:id="@+id/ivCloud"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:layout_constraintTop_toTopOf="@id/toolbar"
+        android:layout_marginEnd="16dp"
+        android:elevation="4dp"
+        android:src="@drawable/ic_cloud_options"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
-        app:layout_constraintEnd_toStartOf="@id/ivLogOut"
-        android:src="@drawable/ic_cloud"
-        android:layout_marginEnd="16dp"/>
+        app:layout_constraintEnd_toStartOf="@id/ivSettings"
+        app:layout_constraintTop_toTopOf="@id/toolbar" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:elevation="4dp"
+        android:theme="@style/CircularProgressBar"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/ivCloud"
+        app:layout_constraintEnd_toEndOf="@id/ivCloud"
+        tools:visibility="visible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

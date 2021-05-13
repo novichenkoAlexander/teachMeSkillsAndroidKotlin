@@ -9,8 +9,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/cardViewBackground"
+        android:layout_margin="4dp"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="18dp"
         app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -56,10 +57,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_cloud"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/tvDate"
                 app:layout_constraintEnd_toStartOf="@+id/tvDate"
-                app:layout_constraintTop_toTopOf="@+id/tvDate"
-                app:tint="@color/blue"/>
+                app:layout_constraintTop_toTopOf="@+id/tvDate" />
+
+            <ImageView
+                android:id="@+id/ivNotify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_notify_icon"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@id/ivCloud"
+                app:layout_constraintTop_toBottomOf="@id/ivCloud"
+                app:layout_constraintTop_toTopOf="@id/ivCloud" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="15:20" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,16 +1,19 @@
 package io.techmeskills.an02onl_plannerapp.screen.main
 
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.akexorcist.snaptimepicker.SnapTimePickerDialog
+import com.akexorcist.snaptimepicker.TimeValue
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentNoteBinding
-import io.techmeskills.an02onl_plannerapp.screen.main.models.Note
+import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import java.text.SimpleDateFormat
@@ -29,9 +32,25 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
 
     private val dateFormatter: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
+    private val timeFormatter: SimpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+
+    private val calendar = Calendar.getInstance(Locale.getDefault())
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var isNotified = false
+
+        viewBinding.swNotify.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                isNotified = true
+                buttonView.text = "Notify"
+            } else {
+                isNotified = false
+                buttonView.text = "Not notify"
+            }
+        }
 
         viewBinding.btnConfirm.setOnClickListener {
             if (viewBinding.etInfo.text.isNotBlank()) {
@@ -41,15 +60,18 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
                         Note(
                             id = it.id,
                             title = viewBinding.etInfo.text.toString(),
-                            date = dateFormatter.format(viewBinding.dataPicker.getSelectedDate()),
-                            userId = it.userId
+                            date = "${viewBinding.btnDate.text} ${viewBinding.btnTime.text}",
+                            userName = it.userName,
+                            isNotified = isNotified
                         )
                     )
                 } ?: kotlin.run {
                     viewModel.addNewNote(
                         Note(
                             title = viewBinding.etInfo.text.toString(),
-                            date = dateFormatter.format(viewBinding.dataPicker.getSelectedDate())
+                            date = "${viewBinding.btnDate.text} ${viewBinding.btnTime.text}",
+                            userName = "",
+                            isNotified = isNotified
                         )
                     )
                 }
@@ -59,10 +81,19 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
             }
         }
 
+        viewBinding.btnDate.setOnClickListener {
+            showDatePickerDialog()
+        }
+        viewBinding.btnTime.setOnClickListener {
+            showTimePickerDialog()
+        }
+
         args.noteToEdit?.let { noteToEdit ->
             viewBinding.etInfo.setText(noteToEdit.title)
-            viewBinding.dataPicker.setSelectedDate(noteToEdit.date)
+            viewBinding.btnDate.text = noteToEdit.date.substring(0, 10)
+            viewBinding.btnTime.text = noteToEdit.date.substring(10)
         }
+
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
@@ -76,28 +107,50 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
             }
         }
 
-    private fun DatePicker.getSelectedDate(): Date {
-        val calendar = Calendar.getInstance(Locale.getDefault())
-        calendar.set(Calendar.YEAR, this.year)
-        calendar.set(Calendar.MONTH, this.month)
-        calendar.set(Calendar.DAY_OF_MONTH, this.dayOfMonth)
-        calendar.set(Calendar.HOUR, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-        return calendar.time
-    }
-
-    private fun DatePicker.setSelectedDate(date: String?) {
-        date?.let {
-            dateFormatter.parse(it)?.let { date ->
-                val calendar = Calendar.getInstance(Locale.getDefault())
-                calendar.time = date
-                val year = calendar.get(Calendar.YEAR)
-                val month = calendar.get(Calendar.MONTH)
-                val day = calendar.get(Calendar.DAY_OF_MONTH)
-                this.updateDate(year, month, day)
+    @Suppress("DEPRECATION")
+    @SuppressLint("ResourceType")
+    private fun showTimePickerDialog() {
+        val dialog = SnapTimePickerDialog.Builder().apply {
+            setTitle(R.string.time_picker_title)
+            setPrefix(R.string.time_picker_prefix)
+            setThemeColor(R.color.purple_500)
+            setTitleColor(R.color.white)
+            setPreselectedTime(
+                TimeValue(
+                    calendar.get(Calendar.HOUR_OF_DAY),
+                    calendar.get(Calendar.MINUTE)
+                )
+            )
+        }.build().apply {
+            setListener { hour, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                calendar.set(Calendar.MINUTE, minute)
+                val time = calendar.time
+                viewBinding.btnTime.text = timeFormatter.format(time)
             }
         }
+        this.fragmentManager?.let { dialog.show(it, SnapTimePickerDialog.TAG) }
     }
+
+
+    private fun showDatePickerDialog() {
+        DatePickerDialog(
+            requireContext(), dateListener,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
+
+    private val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        setInitDate()
+    }
+
+    private fun setInitDate() {
+        viewBinding.btnDate.text = dateFormatter.format(calendar.time)
+    }
+
 }

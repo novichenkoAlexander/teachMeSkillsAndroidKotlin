@@ -2,24 +2,27 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
-import io.techmeskills.an02onl_plannerapp.screen.main.repositories.CloudRepository
-import io.techmeskills.an02onl_plannerapp.screen.main.repositories.NotesRepository
-import io.techmeskills.an02onl_plannerapp.screen.main.repositories.UsersRepository
+import io.techmeskills.an02onl_plannerapp.repositories.CloudRepository
+import io.techmeskills.an02onl_plannerapp.repositories.NotesRepository
+import io.techmeskills.an02onl_plannerapp.repositories.UsersRepository
 import io.techmeskills.an02onl_plannerapp.support.CoroutineViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val notesRepository: NotesRepository,
-    private val usersRepository: UsersRepository,
+    usersRepository: UsersRepository,
     private val cloudRepository: CloudRepository
 ) : CoroutineViewModel() {
 
     val currentUserNameLiveData = usersRepository.getCurrentUserName().asLiveData()
 
+    @ExperimentalCoroutinesApi
     val notesLiveData = notesRepository.currentUserNotesFlow.asLiveData()
 
     val progressLifeData = MutableLiveData<Boolean>()
 
+    @ExperimentalCoroutinesApi
     fun deleteNote(pos: Int) {
         launch {
             val note = notesLiveData.value?.get(pos)
@@ -27,19 +30,13 @@ class MainViewModel(
         }
     }
 
-    fun logOut() {
-        launch {
-            usersRepository.logout()
-        }
-    }
-
-    fun uploadNotes() = launch {
-        val result = cloudRepository.uploadNotes()
+    fun exportNotes() = launch {
+        val result = cloudRepository.exportNotes()
         progressLifeData.postValue(result)
     }
 
-    fun downloadNotes() = launch {
-        val result = cloudRepository.downloadNotes()
+    fun importNotes() = launch {
+        val result = cloudRepository.importNotes()
         progressLifeData.postValue(result)
     }
 
