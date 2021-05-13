@@ -42,7 +42,6 @@ class NotesRepository(
                 notificationRepository.unsetNotification(it)
                 notesDao.deleteNote(it)
             }
-
         }
     }
 
