@@ -47,6 +47,8 @@
         android:backgroundTint="@color/red"
         android:drawableTint="@color/white"
         android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:text="@string/delete_user"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -58,7 +60,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvLogOut">
 
     </androidx.appcompat.widget.AppCompatButton>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

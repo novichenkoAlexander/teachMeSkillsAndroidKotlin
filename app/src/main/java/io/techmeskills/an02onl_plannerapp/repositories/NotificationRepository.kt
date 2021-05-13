@@ -2,6 +2,7 @@ package io.techmeskills.an02onl_plannerapp.repositories
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
 import io.techmeskills.an02onl_plannerapp.models.Note
@@ -16,7 +17,7 @@ class NotificationRepository(private val context: Context, private val alarmMana
 
     fun setNotification(note: Note) {
         val calendar = Calendar.getInstance()
-        if (note.date.contains("[\\sw+]")) {
+        if (note.date.contains("[\\s+]")) {
             calendar.time = dateAndTimeFormatter.parse(note.date)
         } else {
             calendar.time = dateFormatter.parse(note.date)
@@ -35,15 +36,17 @@ class NotificationRepository(private val context: Context, private val alarmMana
     private fun makeIntent(note: Note): PendingIntent {
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.action = INTENT_ACTION
-        intent.putExtra(INTENT_TEXT, note.title)
-        intent.putExtra(INTENT_USER, note.userName)
-        return PendingIntent.getBroadcast(context, 0, intent, 0)
+        intent.putExtra(NOTE_ID_KEY, note.id)
+        intent.putExtra(NOTE_TEXT_KEY, note.title)
+        intent.putExtra(USER_NAME_KEY, note.userName)
+        return PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT)
     }
 
     companion object {
         private const val INTENT_ACTION = "PLANNER_APP_NOTIFICATION"
-        const val INTENT_TEXT = "PLANNER_APP_NOTIFICATION_TEXT"
-        const val INTENT_USER = "PLANNER_APP_NOTIFICATION_USER"
+        const val NOTE_TEXT_KEY = "PLANNER_APP_NOTIFICATION_TEXT"
+        const val USER_NAME_KEY = "PLANNER_APP_NOTIFICATION_USER"
+        const val NOTE_ID_KEY = "PLANNER_APP_NOTE_ID"
     }
 
 }

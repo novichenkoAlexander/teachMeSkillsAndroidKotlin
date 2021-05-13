@@ -36,6 +36,16 @@ class NotesRepository(
         }
     }
 
+    suspend fun deleteNoteById(noteId: Long) {
+        withContext(Dispatchers.IO) {
+            notesDao.getNoteById(noteId).let {
+                notificationRepository.unsetNotification(it)
+                notesDao.deleteNote(it)
+            }
+
+        }
+    }
+
     suspend fun addNote(note: Note) {
         withContext(Dispatchers.IO) {
             if (note.isNotified) {

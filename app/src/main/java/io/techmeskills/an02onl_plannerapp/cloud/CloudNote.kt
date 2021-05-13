@@ -8,5 +8,8 @@ class CloudNote(
     val noteTitle: String,
 
     @SerializedName("date")
-    val date: String
+    val date: String,
+
+    @SerializedName("isNotified")
+    val isNotified: Boolean
 )

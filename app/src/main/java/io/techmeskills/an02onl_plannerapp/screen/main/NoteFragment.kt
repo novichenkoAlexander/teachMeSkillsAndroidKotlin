@@ -90,7 +90,7 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
 
         args.noteToEdit?.let { noteToEdit ->
             viewBinding.etInfo.setText(noteToEdit.title)
-            viewBinding.btnDate.text = noteToEdit.date
+            viewBinding.btnDate.text = noteToEdit.date.substring(0, 10)
             viewBinding.btnTime.text = noteToEdit.date.substring(10)
         }
 

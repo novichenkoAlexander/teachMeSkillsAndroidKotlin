@@ -12,13 +12,16 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.repositories.NotificationRepository
+import org.koin.core.component.KoinApiExtension
 
 class AlarmReceiver : BroadcastReceiver() {
 
+    @KoinApiExtension
     override fun onReceive(context: Context, intent: Intent) {
         showNotification(context, intent)
     }
 
+    @KoinApiExtension
     private fun showNotification(context: Context, intent: Intent) {
         val contentIntent = PendingIntent.getActivity(
             context, 0,
@@ -31,17 +34,40 @@ class AlarmReceiver : BroadcastReceiver() {
             createChannel(notificationManager)
         }
 
-        val alarmBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(intent.getStringExtra(NotificationRepository.INTENT_USER))
-            .setContentText(intent.getStringExtra(NotificationRepository.INTENT_TEXT))
+        val noteOwner = intent.getStringExtra(NotificationRepository.USER_NAME_KEY)
+        val noteTitle = intent.getStringExtra(NotificationRepository.NOTE_TEXT_KEY)
+        val noteId = intent.getLongExtra(NotificationRepository.NOTE_ID_KEY, -1)
 
-        alarmBuilder.apply {
-            setContentIntent(contentIntent)
-            setDefaults(Notification.DEFAULT_SOUND)
-            setAutoCancel(true)
-        }
-        notificationManager.notify(1, alarmBuilder.build())
+        val alarmBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL)
+            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setContentTitle(noteOwner)
+            .setContentText(noteTitle)
+            .setContentIntent(contentIntent)
+            .addAction(deleteAction(context, noteId))
+            .setDefaults(Notification.DEFAULT_SOUND)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+
+        notificationManager.notify(0, alarmBuilder.build())
+    }
+
+    @KoinApiExtension
+    private fun deleteAction(context: Context, noteId: Long): NotificationCompat.Action {
+        val deleteIntent = Intent(context.applicationContext, AlarmService::class.java)
+        deleteIntent.action = ACTION_DELETE
+        deleteIntent.putExtra(NOTIFICATION_KEY_NOTE_ID, noteId)
+
+        val deletePendingIntent =
+            PendingIntent.getService(
+                context.applicationContext,
+                1111,
+                deleteIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+
+        return NotificationCompat.Action.Builder(
+            R.drawable.ic_trash_icon, "Delete", deletePendingIntent
+        ).build()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -58,6 +84,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
     companion object {
         private const val NOTIFICATION_CHANNEL = "PLANNER_APP_NOTIFICATION_CHANNEL"
+        const val NOTIFICATION_KEY_NOTE_ID = "PLANNER_APP_NOTIFICATION_KEY_NOTE_ID"
+        const val ACTION_DELETE = "PLANNER_APP_ACTION_DELETE"
 
     }
 }
