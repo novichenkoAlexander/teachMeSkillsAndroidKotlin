@@ -14,6 +14,7 @@ import com.akexorcist.snaptimepicker.TimeValue
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentNoteBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
+import io.techmeskills.an02onl_plannerapp.support.CalendarView
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import java.text.SimpleDateFormat
@@ -31,6 +32,8 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
     private val viewModel: NoteViewModel by viewModel()
 
     private val dateFormatter: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+
+    private val dayFormatter = SimpleDateFormat("dd.EEE.2021", Locale.getDefault())
 
     private val timeFormatter: SimpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
@@ -93,6 +96,12 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
             if (noteToEdit.date.isNotBlank()) {
                 viewBinding.btnDate.text = noteToEdit.date.substring(0, 10)
                 viewBinding.btnTime.text = noteToEdit.date.substring(10)
+            }
+        }
+
+        viewBinding.calendarView.onDateChangeCallback = object : CalendarView.DateChangeListener {
+            override fun onDateChanged(date: Date) {
+                viewBinding.btnDate.text = dayFormatter.format(date)
             }
         }
 
