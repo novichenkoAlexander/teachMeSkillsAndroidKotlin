@@ -5,7 +5,7 @@ import android.app.Application
 import android.content.Context
 import io.techmeskills.an02onl_plannerapp.screen.login.LoginScreenViewModel
 import io.techmeskills.an02onl_plannerapp.screen.main.MainViewModel
-import io.techmeskills.an02onl_plannerapp.screen.main.NoteViewModel
+import io.techmeskills.an02onl_plannerapp.screen.noteDetails.NoteViewModel
 import io.techmeskills.an02onl_plannerapp.cloud.ApiInterface
 import io.techmeskills.an02onl_plannerapp.database.DataBaseConstructor
 import io.techmeskills.an02onl_plannerapp.database.MyAppDataBase

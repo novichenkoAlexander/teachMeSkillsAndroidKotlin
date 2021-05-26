@@ -53,6 +53,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
     @KoinApiExtension
     private fun deleteAction(context: Context, noteId: Long): NotificationCompat.Action {
+
         val deleteIntent = Intent(context.applicationContext, AlarmService::class.java)
         deleteIntent.action = ACTION_DELETE
         deleteIntent.putExtra(NOTIFICATION_KEY_NOTE_ID, noteId)

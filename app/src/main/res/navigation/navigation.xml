@@ -73,7 +73,7 @@
 
     <fragment
         android:id="@+id/noteFragment"
-        android:name="io.techmeskills.an02onl_plannerapp.screen.main.NoteFragment"
+        android:name="io.techmeskills.an02onl_plannerapp.screen.noteDetails.NoteFragment"
         android:label="NoteFragment"
         tools:layout="@layout/fragment_note">
         <argument

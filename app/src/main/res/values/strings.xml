@@ -35,9 +35,11 @@
     <string name="cloud_options">Cloud options</string>
     <string name="time_picker_title">Please select time</string>
     <string name="time_picker_prefix">>></string>
-    <string name="time_picker_suffix"> &gt;&gt; </string>
+    <string name="time_picker_suffix"> &lt;&lt; </string>
     <string name="btn_date_title">DATE</string>
     <string name="btn_time_title">TIME</string>
+    <string name="notify">Notify</string>
+    <string name="not_notify">Not notify</string>
 
 
 </resources>

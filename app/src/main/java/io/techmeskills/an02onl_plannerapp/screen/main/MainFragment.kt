@@ -17,6 +17,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentMainBinding
+import io.techmeskills.an02onl_plannerapp.databinding.FragmentMainCoordinatorBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.navigateSafe
@@ -25,9 +26,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
 
-class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_main) {
+class MainFragment : NavigationFragment<FragmentMainCoordinatorBinding>(R.layout.fragment_main_coordinator) {
 
-    override val viewBinding: FragmentMainBinding by viewBinding()
+    override val viewBinding: FragmentMainCoordinatorBinding by viewBinding()
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -43,25 +44,8 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //BottomSheet
-        val dialog = BottomSheetDialog(requireContext())
-        val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet, null)
-        val import = bottomSheetView.findViewById<TextView>(IMPORT_NOTES)
-        val export = bottomSheetView.findViewById<TextView>(EXPORT_NOTES)
-
-        dialog.setContentView(bottomSheetView, null)
         viewBinding.ivCloud.setOnClickListener {
-            dialog.show()
-            export.setOnClickListener {
-                viewBinding.progressBar.isVisible = true
-                viewModel.exportNotes()
-                dialog.dismiss()
-            }
-            import.setOnClickListener {
-                viewBinding.progressBar.isVisible = true
-                viewModel.importNotes()
-                dialog.dismiss()
-            }
+            openBottomSheetDialog()
         }
 
         viewBinding.recyclerView.adapter = adapter
@@ -69,7 +53,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             adapter.submitList(it)
         }
 
-        viewBinding.btnAddNote.setOnClickListener {
+        viewBinding.fabAddNewNote.setOnClickListener {
             findNavController().navigateSafe(MainFragmentDirections.toNoteFragment(null))
         }
 
@@ -111,7 +95,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
                     )
                     c.drawRect(backGround, paint)
 
-                    // make note transparent
+                    // make transparent notes
                     val width: Float = viewHolder.itemView.width.toFloat()
                     val alpha = 1.0f - abs(dX) / width
                     viewHolder.itemView.alpha = alpha
@@ -125,25 +109,38 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         noteHelper.attachToRecyclerView(viewBinding.recyclerView)
 
         viewModel.currentUserNameLiveData.observe(this.viewLifecycleOwner) { userName ->
-            viewBinding.toolbar.title = userName
+            viewBinding.collapsingToolbar.title = userName
         }
 
         viewModel.progressLifeData.observe(this.viewLifecycleOwner) { success ->
-            viewBinding.progressBar.isVisible = false
             val cloudResult = if (success) R.string.cloud_success else R.string.cloud_failed
             Toast.makeText(requireContext(), cloudResult, Toast.LENGTH_LONG).show()
         }
     }
 
-    override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
-        viewBinding.toolbar.setVerticalMargin(marginTop = top)
-        viewBinding.recyclerView.setPadding(0, 0, 0, bottom)
-        viewBinding.btnAddNote.setVerticalMargin(marginBottom = bottom)
+    //BottomSheetDialog
+    private fun openBottomSheetDialog() {
+        val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_fragment, null)
+        val dialog = BottomSheetDialog(requireContext())
+        val btnImport = bottomSheetView.findViewById<TextView>(R.id.tvImportNotes)
+        val btnExport = bottomSheetView.findViewById<TextView>(R.id.tvExportNotes)
+        dialog.setContentView(bottomSheetView, null)
+
+        btnExport.setOnClickListener {
+            viewModel.exportNotes()
+            dialog.dismiss()
+        }
+
+        btnImport.setOnClickListener {
+            viewModel.importNotes()
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
-    companion object {
-        private const val EXPORT_NOTES = R.id.ivExportNotes
-        private const val IMPORT_NOTES = R.id.ivImportNotes
+    override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
+        viewBinding.recyclerView.setPadding(0, 0, 0, bottom)
+        viewBinding.mainToolbar.setVerticalMargin(marginTop = top)
     }
 
 }

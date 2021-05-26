@@ -10,6 +10,6 @@ class CloudNote(
     @SerializedName("date")
     val date: String,
 
-    @SerializedName("isNotified")
+    @SerializedName("alarmEnabled")
     val isNotified: Boolean
 )

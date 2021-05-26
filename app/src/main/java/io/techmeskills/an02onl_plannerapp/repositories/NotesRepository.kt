@@ -47,10 +47,8 @@ class NotesRepository(
 
     suspend fun addNote(note: Note) {
         withContext(Dispatchers.IO) {
-            if (note.isNotified) {
-                notificationRepository.setNotification(note)
-            }
-            notesDao.insertNote(
+
+            val noteId = notesDao.insertNote(
                 Note(
                     title = note.title,
                     date = note.date,
@@ -58,6 +56,9 @@ class NotesRepository(
                     isNotified = note.isNotified
                 )
             )
+            if (note.isNotified) {
+                notificationRepository.setNotification(note.copy(id = noteId))
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package io.techmeskills.an02onl_plannerapp.screen.main
+package io.techmeskills.an02onl_plannerapp.screen.noteDetails
 
 import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.repositories.NotesRepository
