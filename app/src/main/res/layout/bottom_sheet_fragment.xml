@@ -21,13 +21,13 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         android:fontFamily="sans-serif-black"
-        app:layout_constraintBottom_toTopOf="@id/ivExportNotes"
+        app:layout_constraintBottom_toTopOf="@id/tvExportNotes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ivExportNotes"
+        android:id="@+id/tvExportNotes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -41,13 +41,13 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:drawableStartCompat="@drawable/ic_cloud_upload"
-        app:layout_constraintBottom_toTopOf="@id/ivImportNotes"
+        app:layout_constraintBottom_toTopOf="@id/tvImportNotes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCloudOptions" />
 
     <TextView
-        android:id="@+id/ivImportNotes"
+        android:id="@+id/tvImportNotes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -62,8 +62,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:drawableStartCompat="@drawable/ic_cloud_download"
-        app:layout_constraintEnd_toEndOf="@+id/ivExportNotes"
-        app:layout_constraintStart_toStartOf="@+id/ivExportNotes"
-        app:layout_constraintTop_toBottomOf="@+id/ivExportNotes" />
+        app:layout_constraintEnd_toEndOf="@+id/tvExportNotes"
+        app:layout_constraintStart_toStartOf="@+id/tvExportNotes"
+        app:layout_constraintTop_toBottomOf="@+id/tvExportNotes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

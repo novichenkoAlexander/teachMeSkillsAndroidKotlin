@@ -1,4 +1,4 @@
-package io.techmeskills.an02onl_plannerapp.screen.main
+package io.techmeskills.an02onl_plannerapp.screen.noteDetails
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -14,6 +14,7 @@ import com.akexorcist.snaptimepicker.TimeValue
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentNoteBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
+import io.techmeskills.an02onl_plannerapp.support.CalendarView
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import java.text.SimpleDateFormat
@@ -32,6 +33,8 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
 
     private val dateFormatter: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
+    private val dayFormatter = SimpleDateFormat("dd.EEE.2021", Locale.getDefault())
+
     private val timeFormatter: SimpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
     private val calendar = Calendar.getInstance(Locale.getDefault())
@@ -45,10 +48,10 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
         viewBinding.swNotify.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 isNotified = true
-                buttonView.text = "Notify"
+                buttonView.text = resources.getString(R.string.notify)
             } else {
                 isNotified = false
-                buttonView.text = "Not notify"
+                buttonView.text = resources.getString(R.string.not_notify)
             }
         }
 
@@ -90,8 +93,16 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
 
         args.noteToEdit?.let { noteToEdit ->
             viewBinding.etInfo.setText(noteToEdit.title)
-            viewBinding.btnDate.text = noteToEdit.date.substring(0, 10)
-            viewBinding.btnTime.text = noteToEdit.date.substring(10)
+            if (noteToEdit.date.isNotBlank()) {
+                viewBinding.btnDate.text = noteToEdit.date.substring(0, 10)
+                viewBinding.btnTime.text = noteToEdit.date.substring(10)
+            }
+        }
+
+        viewBinding.calendarView.onDateChangeCallback = object : CalendarView.DateChangeListener {
+            override fun onDateChanged(date: Date) {
+                viewBinding.btnDate.text = dayFormatter.format(date)
+            }
         }
 
     }
@@ -113,6 +124,7 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
         val dialog = SnapTimePickerDialog.Builder().apply {
             setTitle(R.string.time_picker_title)
             setPrefix(R.string.time_picker_prefix)
+            setSuffix(R.string.time_picker_suffix)
             setThemeColor(R.color.purple_500)
             setTitleColor(R.color.white)
             setPreselectedTime(
@@ -131,7 +143,6 @@ class NoteFragment : NavigationFragment<FragmentNoteBinding>(R.layout.fragment_n
         }
         this.fragmentManager?.let { dialog.show(it, SnapTimePickerDialog.TAG) }
     }
-
 
     private fun showDatePickerDialog() {
         DatePickerDialog(

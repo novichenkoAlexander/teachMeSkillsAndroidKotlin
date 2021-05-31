@@ -17,7 +17,7 @@ import kotlinx.parcelize.Parcelize
         onDelete = ForeignKey.CASCADE
     )]
 )
-open class Note(
+data class Note(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
 
